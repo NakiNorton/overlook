@@ -1,7 +1,66 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
+*{margin: 10px; padding:0}
+
 $primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 ;
 
 body {
   background: $primary-background;
+  padding-top: 10vh;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 10%;
+}
+
+h2 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  width: 40vh;
+  height: auto;
+  padding: 20px 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 #000;
+  margin: auto;
+}
+
+ul.login-form {
+  width: 37vh;
+  justify-content: center;
+  list-style-type: none;
+  text-align: center;
+}
+
+ul.login-form li {
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+ul.login-form input {
+  width:250px;
+  font-size: medium;
+  text-align: center;
+  padding: 10px 0px;
+  border: none;
+  background-color: lightgray;
+  border-radius: 5px;
+}
+
+ul.login-form li input[type='button'] {
+  background-color: lightseagreen;
+  color: white;
+}
+
+ul.login-form p {
+  color: darkblue;
 }
