@@ -10,6 +10,7 @@ import hotel from './Hotel'
 // import Booking from './Booking'
 // import Guest from './Guest'
 import moment from 'moment';
+import User from './User';
 
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
@@ -17,6 +18,7 @@ import './images/turing-logo.png'
 
 // Global variables //
 let todaysDate = moment().format('YYYY/MM/DD');
+let currentUser;
 
 
 function fetchAllHotelData() {
@@ -35,6 +37,38 @@ function fetchAllHotelData() {
   
 }
 
+const validatePassword = (passwordInput) => {
+ (passwordInput.value !== 'overlook2020') ? false : true; 
+}
 
-// on window load//
+const validateUsername = (usernameInput) => {
+  if (usernameInput.value === 'manager') {
+    currentUser = new User('manager') 
+  } else if (usernameInput.value.slice(0, 8) === 'customer') {
+    let guestId = usernameInput.value.slice(8)
+    currentUser = new User(Number(guestId))
+    console.log(currentUser)
+  } else {
+    console.log('error')
+  }
+}
+
+const validateLogin = () => {
+  let usernameInput = document.querySelector('.username');
+  let passwordInput = document.querySelector('.password');
+
+  if (validatePassword(passwordInput) === false) {
+    console.log('incorrect password')
+  } else {
+    validateUsername(usernameInput)
+  }
+}
+
+
+// Event listeners //
+document.querySelector('.login-submit').addEventListener('click', validateLogin)
+
+
+
+// On window load//
 window.addEventListener('load', fetchAllHotelData)
