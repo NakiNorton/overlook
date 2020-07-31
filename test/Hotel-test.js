@@ -5,7 +5,7 @@ import userSampleData from './userDataSample';
 import roomsSampleData from './roomsDataSample';
 import moment from 'moment';
 
-describe('Hotel', function () {
+describe.only('Hotel', function () {
   let hotel, date;
 
   beforeEach(() => {
@@ -48,25 +48,25 @@ describe('Hotel', function () {
      expect(hotel.todaysDate).to.equal(date)
    })
 
-  it('should add room info to booking', function () {
-    hotel.addRoomInfoToBookings()
-    expect(hotel.bookings[0]).to.deep.equal(
+   it('should add room info to booking', function () {
+     hotel.addRoomInfoToBookings()
+     expect(hotel.bookings[0]).to.deep.equal(
       {
-      id: '5fwrgu4i7k55hl6sz',
-      userID: 9,
-      date: '2020/04/22',
-      roomNumber: 5,
-      roomServiceCharges: [],
-      roomType: 'single room',
-      bidet: true,
-      bedSize: 'queen',
-      numBeds: 2,
-      costPerNight: 340.17
+        id: '5fwrgu4i7k55hl6sz',
+        userID: 9,
+        date: '2020/04/22',
+        roomNumber: 8,
+        roomServiceCharges: [],
+        roomType: 'junior suite',
+        bidet: false,
+        bedSize: 'king',
+        numBeds: 1,
+        costPerNight: 261.26
+      })
     })
-  })
 
-   it('should have all available rooms', function () {
-     hotel.getAvailableRooms('2020/01/31')
+   it('should find all available rooms', function () {
+     hotel.findAvailableRooms('2020/01/31')
      expect(hotel.availableRooms).to.deep.equal([
        {
          number: 1,
@@ -101,28 +101,20 @@ describe('Hotel', function () {
          costPerNight: 429.44
        },
        {
-         number: 4,
+         number: 5,
          roomType: 'single room',
-         bidet: false,
+         bidet: true,
+         bedSize: 'queen',
+         numBeds: 2,
+         costPerNight: 340.17
+       },
+       {
+         number: 6,
+         roomType: 'junior suite',
+         bidet: true,
          bedSize: 'queen',
          numBeds: 1,
-         costPerNight: 429.44
-       },
-       {
-         number: 5,
-         roomType: 'single room',
-         bidet: true,
-         bedSize: 'queen',
-         numBeds: 2,
-         costPerNight: 340.17
-       },
-       {
-         number: 5,
-         roomType: 'single room',
-         bidet: true,
-         bedSize: 'queen',
-         numBeds: 2,
-         costPerNight: 340.17
+         costPerNight: 397.02
        },
        {
          number: 7,
@@ -133,6 +125,14 @@ describe('Hotel', function () {
          costPerNight: 231.46
        },
        {
+         number: 8,
+         roomType: 'junior suite',
+         bidet: false,
+         bedSize: 'king',
+         numBeds: 1,
+         costPerNight: 261.26
+       },
+       {
          number: 9,
          roomType: 'single room',
          bidet: true,
@@ -140,10 +140,33 @@ describe('Hotel', function () {
          numBeds: 1,
          costPerNight: 200.39
        }
-
      ])
    })
 
+  it('should return all booked rooms', function () {
+    hotel.findBookedRooms('2020/02/14')
+    expect(hotel.bookedRooms).to.deep.equal([
+      {
+        number: 1,
+        roomType: 'residential suite',
+        bidet: true,
+        bedSize: 'queen',
+        numBeds: 1,
+        costPerNight: 358.4
+      },
+      {
+        number: 6,
+        roomType: 'junior suite',
+        bidet: true,
+        bedSize: 'queen',
+        numBeds: 1,
+        costPerNight: 397.02
+      },
+    ])
+  })
 
-
+  it('should calculate total revenue for today', function() {
+    hotel.addRoomInfoToBookings()
+    expect(hotel.calculateTodaysRevenue('2020/02/14')).to.equal(755.42)
+  })
 })
