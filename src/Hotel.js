@@ -5,12 +5,12 @@ class Hotel {
   this.rooms = rooms;
   this.todaysDate = date;
   this.availableRooms = [];
-  this.todaysRevenue = [];
+  this.todaysRevenue = null;
 }
 
   addRoomInfoToBookings() {
-    this.bookings.map(booking => {
-      this.rooms.forEach(room => {
+     return this.bookings.map(booking => {
+       this.rooms.forEach(room => {
         if (room.number === booking.roomNumber) {
           booking.roomType = room.roomType,
           booking.bidet = room.bidet,
@@ -19,8 +19,8 @@ class Hotel {
           booking.costPerNight = room.costPerNight
         }
       })
-      this.bookings.push(booking)
     })
+
   };
 
   getAvailableRooms(date = this.todaysDate) {
