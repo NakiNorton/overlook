@@ -5,7 +5,7 @@ import userSampleData from './userDataSample';
 import roomsSampleData from './roomsDataSample';
 import moment from 'moment';
 
-describe.only('Hotel', function () {
+describe('Hotel', function () {
   let hotel, date;
 
   beforeEach(() => {
@@ -168,5 +168,34 @@ describe.only('Hotel', function () {
   it('should calculate total revenue for today', function() {
     hotel.addRoomInfoToBookings()
     expect(hotel.calculateTodaysRevenue('2020/02/14')).to.equal(755.42)
+  })
+
+  it('should be able to find a guests bookings', function () {
+    expect(hotel.findGuestBookings(1)).to.deep.equal([
+      {
+        id: '5fwrgu4i7k55hl6t5',
+        userID: 1,
+        date: '2020/01/24',
+        roomNumber: 4,
+        roomServiceCharges: [],
+        roomType: 'single room',
+        bidet: false,
+        bedSize: 'queen',
+        numBeds: 1,
+        costPerNight: 429.44
+      },
+      {
+        id: '5fwrgu4i7k55hl6t8',
+        userID: 1,
+        date: '2020/02/14',
+        roomNumber: 1,
+        roomServiceCharges: [],
+        roomType: 'residential suite',
+        bidet: true,
+        bedSize: 'queen',
+        numBeds: 1,
+        costPerNight: 358.4
+      }
+    ])
   })
 })
