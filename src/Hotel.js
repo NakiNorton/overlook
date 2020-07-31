@@ -47,11 +47,15 @@ class Hotel {
   calculateTodaysRevenue(date) {
     this.addRoomInfoToBookings()
     let todaysBookings = this.bookings.filter(booking => booking.date === date)
-    let rev = todaysBookings.reduce((total, booking) => {
+    return todaysBookings.reduce((total, booking) => {
       return total + booking.costPerNight
     }, 0)
-    console.log(rev)
-    return rev;
+  }
+
+
+  findGuestBookings(id) {
+    this.addRoomInfoToBookings()
+    return this.bookings.filter(booking => booking.userID === id)
   }
 
 
