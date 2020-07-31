@@ -1,14 +1,17 @@
 import { expect } from 'chai';
 import Guest from '../src/Guest';
+import Hotel from '../src/Hotel';
 import bookingsSampleData from './bookingsDataSample';
+import roomsSampleData from './roomsDataSample';
 import userSampleData from './userDataSample';
 
 describe('Guest', function() {
-  let currentGuest, bookings;
+  let currentGuest, date, hotel;
   
   beforeEach(() => {
+    date = '2020/01/24';
+    hotel = new Hotel(userSampleData, bookingsSampleData, roomsSampleData, date)
     currentGuest = new Guest(userSampleData[0].id, userSampleData[0].name)
-    bookings = bookingsSampleData;
   })
   
   it('should be a function', () => {
@@ -39,27 +42,38 @@ describe('Guest', function() {
   })
 
   it('should be able to find a guests bookings', function () {
-    currentGuest.getGuestBookings(bookings)
-    expect(currentGuest.bookings).to.deep.equal([
+    currentGuest.getGuestBookings(hotel)
+    expect(currentGuest.guestBookings).to.deep.equal([
       {
-        "id": "5fwrgu4i7k55hl6t5",
-        "userID": 1,
-        "date": "2020/01/24",
-        "roomNumber": 4,
-        "roomServiceCharges": []
+        id: '5fwrgu4i7k55hl6t5',
+        userID: 1,
+        date: '2020/01/24',
+        roomNumber: 4,
+        roomServiceCharges: [],
+        roomType: 'single room',
+        bidet: false,
+        bedSize: 'queen',
+        numBeds: 1,
+        costPerNight: 429.44
       },
       {
-        "id": "5fwrgu4i7k55hl6t8",
-        "userID": 1,
-        "date": "2020/02/05",
-        "roomNumber": 1,
-        "roomServiceCharges": []
+        id: '5fwrgu4i7k55hl6t8',
+        userID: 1,
+        date: '2020/02/14',
+        roomNumber: 1,
+        roomServiceCharges: [],
+        roomType: 'residential suite',
+        bidet: true,
+        bedSize: 'queen',
+        numBeds: 1,
+        costPerNight: 358.4
       }
     ])
   })
 
-  // it('should calculate the total amount guest has spent on rooms', () => {
-  //   currentGuest.getTotalCostOfRooms()
-  // })
+  it('should calculate the total amount guest has spent on rooms', () => {
+    currentGuest.getGuestBookings(hotel)
+    expect(currentGuest.getTotalCostOfRooms()).to.equal(787.84)
+  })
 
 }) 
