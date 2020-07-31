@@ -3,10 +3,11 @@ import apiFetch from './apiFetch';
 import Hotel from './Hotel'
 import Guest from './Guest'
 import moment from 'moment';
+import domUpdates from './domUpdates'
 // import User from './User';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+import './images/home-background.jpg'
 
 // Global variables //
 let todaysDate = moment().format('YYYY/MM/DD');
@@ -24,11 +25,11 @@ function fetchAllHotelData() {
   allRooms = apiFetch.getAllRoomsData();
 
   return Promise.all([allGuests, allBookings, allRooms])
-  .then((response) => {
-    let hotel = new Hotel(response[0], response[1], response[2], todaysDate)
-    console.log(hotel)
-  })
- .catch(err => console.log(err.message))
+    .then((response) => {
+      let hotel = new Hotel(response[0], response[1], response[2], todaysDate)
+      console.log(hotel)
+    })
+    .catch(err => console.log(err.message))
 }
 
 // Login validation ///////////
@@ -43,7 +44,7 @@ const validateUsername = (usernameInput) => {
   } else if (usernameInput.value.slice(0, 8) === 'customer' && usernameInput.value.slice(8) <= 50 ) {
     guestId = usernameInput.value.slice(8) 
     console.log('successful login', guestId) // finding out who the guest user is with id.
-    // domUpdates.displayGuestDashboard();
+    domUpdates.displayUserDashboard()
   } else {
     console.log('error')
   }
