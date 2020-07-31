@@ -4,7 +4,7 @@
       "id": "5fwrgu4i7k55hl6sz",
       "userID": 9,
       "date": "2020/04/22",
-      "roomNumber": 5,
+      "roomNumber": 8,
       "roomServiceCharges": []
     },
     {
@@ -31,7 +31,7 @@
     {
       "id": "5fwrgu4i7k55hl6t8",
       "userID": 1,
-      "date": "2020/02/05",
+      "date": "2020/02/14",
       "roomNumber": 1,
       "roomServiceCharges": []
     },
@@ -39,7 +39,7 @@
       "id": "5fwrgu4i7k55hl6t9",
       "userID": 2,
       "date": "2020/02/14",
-      "roomNumber": 4,
+      "roomNumber": 6,
       "roomServiceCharges": []
     },
     {
@@ -67,7 +67,7 @@
       "id": "5fwrgu4i7k55hl6td",
       "userID": 7,
       "date": "2020/01/31",
-      "roomNumber": 2,
+      "roomNumber": 10,
       "roomServiceCharges": []
     }
   ]
