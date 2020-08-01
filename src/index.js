@@ -1,13 +1,10 @@
 import './css/base.scss';
 import apiFetch from './apiFetch';
-import Hotel from './Manager'
 import Guest from './Guest'
 import moment from 'moment';
 import domUpdates from './domUpdates'
 import Manager from './Manager'
-// import User from './User';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/home-background.jpg'
 
 // Global variables //
@@ -18,8 +15,6 @@ let allBookings;
 let guestId;
 let guest;
 let manager;
-
-
 
 const addRoomInfoToBooking = (bookings, rooms) => {
   return bookings.map(booking => {
@@ -35,11 +30,8 @@ const addRoomInfoToBooking = (bookings, rooms) => {
   })
 }
 
-
-
 // Manager Fetch //
-
-function fetchManagerData() { //change to fetchManagerData
+function fetchManagerData() { 
   allGuests = apiFetch.getAllGuestData();
   allBookings = apiFetch.getAllBookingsData();
   allRooms = apiFetch.getAllRoomsData();
@@ -52,7 +44,6 @@ function fetchManagerData() { //change to fetchManagerData
 }
 
 // Guest Fetch //
-
 function fetchGuestData(guestId) {
   allGuests = apiFetch.getAllGuestData();
   allBookings = apiFetch.getAllBookingsData();
@@ -66,11 +57,11 @@ function fetchGuestData(guestId) {
 }
 
 // INSTANTIATION //
-
 const instantiateManager = (allGuests, allBookings, allRooms) => {
   addRoomInfoToBooking(allBookings, allRooms)
   manager = new Manager(allGuests, allBookings, allRooms, todaysDate)
   console.log(manager)
+  return manager // do I need to return this?
 }
 
 const instantiateGuest = (guestId, allGuests, allBookings, allRooms) => {
@@ -82,10 +73,7 @@ const instantiateGuest = (guestId, allGuests, allBookings, allRooms) => {
   return guest // do I need to return this?
 }
 
-
-
 ////// Login validation ///////////
-
 const validateUsername = (usernameInput) => {
   if (usernameInput.value === 'manager') {
     fetchManagerData()
@@ -100,6 +88,8 @@ const validateUsername = (usernameInput) => {
   }
 }
 
+
+// Need to refactor validation process
 const validatePassword = (passwordInput) => {
   (passwordInput.value !== 'overlook2020') ? false : true;
 }
