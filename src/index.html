@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html lang='en-US'>
   <head>
-    <title>The Grand Hotel</title>
+    <title>The Overlook Hotel</title>
   </head>
   <body>
     <header>
       <nav>
-        <button><img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"></button>
-        <h1>The Grand Hotel</h1>
+        <!-- <button><img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"></button> -->
+        <h1>The Overlook Hotel</h1>
       </nav>
     </header>
-    <!-- login -->
-    <div class='form-container'>
+  <main>
+    <section class='login-form-container'>
       <ul class='login-form'>
-        <li><h2>Member Login</h2></li>
+        <li><h2>Login</h2></li>
         <li><input type='text' class='username' name='username'
         placeholder='Username'></li>
         <li><input type='password' class='password' name='password' placeholder='Password'></li>
         <li><input type='button' name='submit' class='login-submit' value='Submit'>
         <p class='login-error'>error message</p>
-    </ul>
-    </div>
-    <main>
- <!-- Login -->
-    </main>
+      </ul>
+    </section>
+    <section class='guest-dashboard hide'>
+      <div class='guest-welcome-box'>
+        <h2 class='guest-name'>Guest Name</h2>
+        <h2 class='guest-money-spent'>Amount spent:</h2>  
+      </div>
+      <div class='guest-bookings'>
+        <article class='bookings-header'>Your Bookings</article>
+        <div class='reservation-button-container'>
+          <button class='reservation-button'>Book A Room</button>
+        </div>
+      </div>
+    </section>
+  </main>
 
    
 
