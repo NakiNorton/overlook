@@ -1,12 +1,11 @@
 import './css/base.scss';
 import apiFetch from './apiFetch';
-import Hotel from './Hotel'
 import Guest from './Guest'
 import moment from 'moment';
-// import User from './User';
+import domUpdates from './domUpdates'
+import Manager from './Manager'
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+import './images/home-background.jpg'
 
 // Global variables //
 let todaysDate = moment().format('YYYY/MM/DD');
@@ -14,41 +13,83 @@ let allGuests;
 let allRooms;
 let allBookings;
 let guestId;
+let guest;
+let manager;
 
+const addRoomInfoToBooking = (bookings, rooms) => {
+  return bookings.map(booking => {
+    rooms.forEach(room => {
+      if (room.number === booking.roomNumber) {
+        booking.roomType = room.roomType,
+        booking.bidet = room.bidet,
+        booking.bedSize = room.bedSize,
+        booking.numBeds = room.numBeds,
+        booking.costPerNight = room.costPerNight
+      }
+    })
+  })
+}
 
-// Data Fetch //
-
-function fetchAllHotelData() {
+// Manager Fetch //
+function fetchManagerData() { 
   allGuests = apiFetch.getAllGuestData();
   allBookings = apiFetch.getAllBookingsData();
   allRooms = apiFetch.getAllRoomsData();
 
   return Promise.all([allGuests, allBookings, allRooms])
-  .then((response) => {
-    let hotel = new Hotel(response[0], response[1], response[2], todaysDate)
-    console.log(hotel)
-  })
- .catch(err => console.log(err.message))
+    .then((data) => {
+      instantiateManager(data[0].users, data[1].bookings, data[2].rooms)
+    })
+    .catch(err => console.log(err.message))
 }
 
-// Login validation ///////////
+// Guest Fetch //
+function fetchGuestData(guestId) {
+  allGuests = apiFetch.getAllGuestData();
+  allBookings = apiFetch.getAllBookingsData();
+  allRooms = apiFetch.getAllRoomsData();
 
-// Put this in it's own User class?
+  return Promise.all([allGuests, allBookings, allRooms])
+    .then((data) => {
+      instantiateGuest(guestId, data[0].users, data[1].bookings, data[2].rooms)
+    })
+    .catch(err => console.log(err.message))
+}
 
+// INSTANTIATION //
+const instantiateManager = (allGuests, allBookings, allRooms) => {
+  addRoomInfoToBooking(allBookings, allRooms)
+  manager = new Manager(allGuests, allBookings, allRooms, todaysDate)
+  console.log(manager)
+  return manager // do I need to return this?
+}
 
+const instantiateGuest = (guestId, allGuests, allBookings, allRooms) => {
+  addRoomInfoToBooking(allBookings, allRooms)
+  let currentGuest = allGuests.find(guest => guest.id === guestId)
+  let guestBookings = allBookings.filter(booking => booking.userID === guestId)
+  guest = new Guest(guestId, currentGuest.name, guestBookings)
+  console.log('guest:', guest)
+  return guest // do I need to return this?
+}
+
+////// Login validation ///////////
 const validateUsername = (usernameInput) => {
   if (usernameInput.value === 'manager') {
-    fetchAllHotelData()
+    fetchManagerData()
     // domUpdates.displayManagerDashboard()
   } else if (usernameInput.value.slice(0, 8) === 'customer' && usernameInput.value.slice(8) <= 50 ) {
-    guestId = usernameInput.value.slice(8) 
-    console.log('successful login', guestId) // finding out who the guest user is with id.
-    // domUpdates.displayGuestDashboard();
+    guestId = Number(usernameInput.value.slice(8))
+    console.log('successful login', guestId) 
+    fetchGuestData(guestId)
+    // domUpdates.displayGuestDashboard()
   } else {
     console.log('error')
   }
 }
 
+
+// Need to refactor validation process
 const validatePassword = (passwordInput) => {
   (passwordInput.value !== 'overlook2020') ? false : true;
 }
@@ -69,4 +110,4 @@ const validateLogin = () => {
 document.querySelector('.login-submit').addEventListener('click', validateLogin)
 
 // On window load//
-window.addEventListener('load', fetchAllHotelData)
+// window.addEventListener('load', fetchAllHotelData)

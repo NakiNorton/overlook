@@ -1,28 +1,40 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
 *{margin: 10px; padding:0}
 
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-;
 
 body {
-  background: $primary-background;
-  padding-top: 10vh;
+  background-image: url(../images/home-background.jpg);
+  // padding-top: 10vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
+
 
 nav {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 10%;
 }
 
-h2 {
+h1 {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: whitesmoke;
   font-weight: 600;
-  font-size: 32px;
+  font-size: 80px;
+
 }
 
-.form-container {
+// h2 {
+//   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+//   font-weight: 400;
+//   font-size: 24px
+// }
+
+.login-form-container {
   display: flex;
   align-items: center;
   width: 40vh;
@@ -32,6 +44,11 @@ h2 {
   border-radius: 10px;
   box-shadow: 0 0 10px 0 #000;
   margin: auto;
+    h2 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 400;
+    font-size: 24px
+    }
 }
 
 ul.login-form {
@@ -63,4 +80,30 @@ ul.login-form li input[type='button'] {
 
 ul.login-form p {
   color: darkblue;
+}
+
+.guest-dashboard {
+  display: flex;
+  align-items: center;
+  width:100vh;
+  height: 50vh;
+  padding: 20px 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 #000;
+  margin: auto;
+}
+
+.guest-welcome-box {
+  background: transparent;
+  color: blue;
+  width: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+}
+
+
+.hide {
+  display: none;
 }
