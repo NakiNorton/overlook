@@ -1,19 +1,14 @@
+
 class Guest {
-  constructor(id, name, bookings) {
-    this.id = id;
+  constructor(guestId, name, bookings) {
+    this.id = guestId;
     this.name = name;
-    // this.allGuests = allguests;
     this.guestBookings = bookings;
   }
 
   getGuestFirstName() {
     const firstName = this.name.split(' ')[0];
     return firstName;
-  }
-
-  getGuestBookings(hotel) {
-    hotel.addRoomInfoToBookings()
-    this.guestBookings = hotel.findGuestBookings(this.id)
   }
 
   getTotalCostOfRooms() {
