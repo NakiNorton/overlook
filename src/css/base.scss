@@ -1,4 +1,15 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
+// color variable:
+
+
+@mixin input-form($width) {
+  width: $width;
+  justify-content: center;
+  list-style-type: none;
+  text-align: center;
+}
+
+
 *{margin: 10px; padding:0}
 
 
@@ -52,10 +63,11 @@ h1 {
 }
 
 ul.login-form {
-  width: 37vh;
-  justify-content: center;
-  list-style-type: none;
-  text-align: center;
+@include input-form(37vh)
+  // width: 37vh;
+  // justify-content: center;
+  // list-style-type: none;
+  // text-align: center;
 }
 
 ul.login-form li {
@@ -103,6 +115,11 @@ ul.login-form p {
   // justify-content: center;
 }
 
+.booking-display,
+.book-room-menu {
+@include input-form(37vh);
+
+}
 
 .hide {
   display: none;
