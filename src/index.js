@@ -1,6 +1,6 @@
 import './css/base.scss';
 import apiFetch from './apiFetch';
-import Hotel from './Hotel'
+import Hotel from './Manager'
 import Guest from './Guest'
 import moment from 'moment';
 import domUpdates from './domUpdates'
@@ -16,13 +16,28 @@ let allGuests;
 let allRooms;
 let allBookings;
 let guestId;
-// let manager;
 let guest;
-let hotel;
 let manager;
 
 
-// Data Fetch //
+
+const addRoomInfoToBooking = (bookings, rooms) => {
+  return bookings.map(booking => {
+    rooms.forEach(room => {
+      if (room.number === booking.roomNumber) {
+        booking.roomType = room.roomType,
+        booking.bidet = room.bidet,
+        booking.bedSize = room.bedSize,
+        booking.numBeds = room.numBeds,
+        booking.costPerNight = room.costPerNight
+      }
+    })
+  })
+}
+
+
+
+// Manager Fetch //
 
 function fetchManagerData() { //change to fetchManagerData
   allGuests = apiFetch.getAllGuestData();
@@ -31,11 +46,12 @@ function fetchManagerData() { //change to fetchManagerData
 
   return Promise.all([allGuests, allBookings, allRooms])
     .then((data) => {
-      setUpHotel(data[0].users, data[1].bookings, data[2].rooms)
-      instantiateManager()
+      instantiateManager(data[0].users, data[1].bookings, data[2].rooms)
     })
     .catch(err => console.log(err.message))
 }
+
+// Guest Fetch //
 
 function fetchGuestData(guestId) {
   allGuests = apiFetch.getAllGuestData();
@@ -44,33 +60,30 @@ function fetchGuestData(guestId) {
 
   return Promise.all([allGuests, allBookings, allRooms])
     .then((data) => {
-      setUpHotel(data[0].users, data[1].bookings, data[2].rooms)
-      instantiateGuest(guestId, data[0].users, data[1].bookings)
+      instantiateGuest(guestId, data[0].users, data[1].bookings, data[2].rooms)
     })
     .catch(err => console.log(err.message))
 }
 
-const instantiateManager = () => {
-  manager = new Manager('test')
-  console.log(manager)
+// INSTANTIATION //
 
+const instantiateManager = (allGuests, allBookings, allRooms) => {
+  addRoomInfoToBooking(allBookings, allRooms)
+  manager = new Manager(allGuests, allBookings, allRooms, todaysDate)
+  console.log(manager)
 }
 
-
-const instantiateGuest = (guestId, allGuests, allBookings) => {
-  console.log(allGuests)
+const instantiateGuest = (guestId, allGuests, allBookings, allRooms) => {
+  addRoomInfoToBooking(allBookings, allRooms)
   let currentGuest = allGuests.find(guest => guest.id === guestId)
   let guestBookings = allBookings.filter(booking => booking.userID === guestId)
   guest = new Guest(guestId, currentGuest.name, guestBookings)
   console.log('guest:', guest)
-  // return guest;
+  return guest // do I need to return this?
 }
 
-const setUpHotel = (allGuests, allBookings, allRooms) => {
-  hotel = new Hotel(allGuests, allBookings, allRooms, todaysDate)
-  console.log(hotel)
 
-}
+
 ////// Login validation ///////////
 
 const validateUsername = (usernameInput) => {
@@ -81,7 +94,7 @@ const validateUsername = (usernameInput) => {
     guestId = Number(usernameInput.value.slice(8))
     console.log('successful login', guestId) 
     fetchGuestData(guestId)
-    domUpdates.displayGuestDashboard()
+    // domUpdates.displayGuestDashboard()
   } else {
     console.log('error')
   }
