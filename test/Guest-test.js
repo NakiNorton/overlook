@@ -1,17 +1,30 @@
 import { expect } from 'chai';
 import Guest from '../src/Guest';
-import Hotel from '../src/Hotel';
 import bookingsSampleData from './bookingsDataSample';
 import roomsSampleData from './roomsDataSample';
 import userSampleData from './userDataSample';
 
 describe('Guest', function() {
-  let currentGuest, date, hotel;
+  let currentGuest, guestBookings;
   
   beforeEach(() => {
-    date = '2020/01/24';
-    hotel = new Hotel(userSampleData, bookingsSampleData, roomsSampleData, date)
-    currentGuest = new Guest(userSampleData[0].id, userSampleData[0].name)
+    // date = '2020/01/24';
+    const addRoomInfoToBooking = (bookings, rooms) => {
+      return bookings.map(booking => {
+        rooms.forEach(room => {
+          if (room.number === booking.roomNumber) {
+            booking.roomType = room.roomType,
+            booking.bidet = room.bidet,
+            booking.bedSize = room.bedSize,
+            booking.numBeds = room.numBeds,
+            booking.costPerNight = room.costPerNight
+          }
+        })
+      })
+    }
+    addRoomInfoToBooking(bookingsSampleData, roomsSampleData)
+    guestBookings = bookingsSampleData.filter(booking => booking.userID === userSampleData[0].id)
+    currentGuest = new Guest(userSampleData[0].id, userSampleData[0].name, guestBookings)
   })
   
   it('should be a function', () => {
@@ -41,8 +54,7 @@ describe('Guest', function() {
     expect(currentGuest.getGuestFirstName()).to.equal('Leatha')
   })
 
-  it('should be able to find a guests bookings', function () {
-    currentGuest.getGuestBookings(hotel)
+  it('should have a list of all the guests bookings', function () {
     expect(currentGuest.guestBookings).to.deep.equal([
       {
         id: '5fwrgu4i7k55hl6t5',
@@ -72,7 +84,6 @@ describe('Guest', function() {
   })
 
   it('should calculate the total amount guest has spent on rooms', () => {
-    currentGuest.getGuestBookings(hotel)
     expect(currentGuest.getTotalCostOfRooms()).to.equal(787.84)
   })
 
