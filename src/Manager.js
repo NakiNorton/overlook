@@ -9,7 +9,7 @@ class Manager extends Guest {
     this.todaysDate = date;
     this.availableRooms = [];
     this.bookedRooms = [];
-}
+  }
 
   findAvailableRooms(date = this.todaysDate) {
     let availRooms = this.allBookings.filter(booking => booking.date !== date)
@@ -34,20 +34,16 @@ class Manager extends Guest {
   }
 
   calculateTodaysRevenue(date) {
-    this.addRoomInfoToBookings()
     let todaysBookings = this.allBookings.filter(booking => booking.date === date)
     return todaysBookings.reduce((total, booking) => {
       return total + booking.costPerNight
     }, 0)
   }
 
-
-  findGuestBookings() {
-    this.addRoomInfoToBookings()
-    return this.allBookings.filter(booking => booking.userID === this.guestId)
+  findGuestBookings(id) {
+    return this.allBookings.filter(booking => booking.userID === id)
+    
   }
-
-
 }
 
 export default Manager;
