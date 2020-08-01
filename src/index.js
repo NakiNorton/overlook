@@ -4,6 +4,7 @@ import Hotel from './Hotel'
 import Guest from './Guest'
 import moment from 'moment';
 import domUpdates from './domUpdates'
+import Manager from './Manager'
 // import User from './User';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
@@ -15,36 +16,72 @@ let allGuests;
 let allRooms;
 let allBookings;
 let guestId;
+// let manager;
+let guest;
+let hotel;
+let manager;
 
 
 // Data Fetch //
 
-function fetchAllHotelData() {
+function fetchManagerData() { //change to fetchManagerData
   allGuests = apiFetch.getAllGuestData();
   allBookings = apiFetch.getAllBookingsData();
   allRooms = apiFetch.getAllRoomsData();
 
   return Promise.all([allGuests, allBookings, allRooms])
-    .then((response) => {
-      let hotel = new Hotel(response[0], response[1], response[2], todaysDate)
-      console.log(hotel)
+    .then((data) => {
+      setUpHotel(data[0].users, data[1].bookings, data[2].rooms)
+      instantiateManager()
     })
     .catch(err => console.log(err.message))
 }
 
-// Login validation ///////////
+function fetchGuestData(guestId) {
+  allGuests = apiFetch.getAllGuestData();
+  allBookings = apiFetch.getAllBookingsData();
+  allRooms = apiFetch.getAllRoomsData();
 
-// Put this in it's own User class?
+  return Promise.all([allGuests, allBookings, allRooms])
+    .then((data) => {
+      setUpHotel(data[0].users, data[1].bookings, data[2].rooms)
+      instantiateGuest(guestId, data[0].users, data[1].bookings)
+    })
+    .catch(err => console.log(err.message))
+}
 
+const instantiateManager = () => {
+  manager = new Manager('test')
+  console.log(manager)
+
+}
+
+
+const instantiateGuest = (guestId, allGuests, allBookings) => {
+  console.log(allGuests)
+  let currentGuest = allGuests.find(guest => guest.id === guestId)
+  let guestBookings = allBookings.filter(booking => booking.userID === guestId)
+  guest = new Guest(guestId, currentGuest.name, guestBookings)
+  console.log('guest:', guest)
+  // return guest;
+}
+
+const setUpHotel = (allGuests, allBookings, allRooms) => {
+  hotel = new Hotel(allGuests, allBookings, allRooms, todaysDate)
+  console.log(hotel)
+
+}
+////// Login validation ///////////
 
 const validateUsername = (usernameInput) => {
   if (usernameInput.value === 'manager') {
-    fetchAllHotelData()
+    fetchManagerData()
     // domUpdates.displayManagerDashboard()
   } else if (usernameInput.value.slice(0, 8) === 'customer' && usernameInput.value.slice(8) <= 50 ) {
-    guestId = usernameInput.value.slice(8) 
-    console.log('successful login', guestId) // finding out who the guest user is with id.
-    domUpdates.displayUserDashboard()
+    guestId = Number(usernameInput.value.slice(8))
+    console.log('successful login', guestId) 
+    fetchGuestData(guestId)
+    domUpdates.displayGuestDashboard()
   } else {
     console.log('error')
   }
@@ -70,4 +107,4 @@ const validateLogin = () => {
 document.querySelector('.login-submit').addEventListener('click', validateLogin)
 
 // On window load//
-window.addEventListener('load', fetchAllHotelData)
+// window.addEventListener('load', fetchAllHotelData)
