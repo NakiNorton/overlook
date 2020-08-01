@@ -1,8 +1,9 @@
 class Guest {
-  constructor(id, name) {
+  constructor(id, name, bookings) {
     this.id = id;
     this.name = name;
-    this.guestBookings = null;
+    // this.allGuests = allguests;
+    this.guestBookings = bookings;
   }
 
   getGuestFirstName() {
