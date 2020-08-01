@@ -1,3 +1,5 @@
+import Guest from '../Guest';
+
 const domUpdates = {
 
   // hideLoginForm() {
@@ -10,6 +12,10 @@ const domUpdates = {
     loginForm.classList.add('hide')
     let guestForm = document.querySelector('.guest-dashboard')
     guestForm.classList.remove('hide')
+    guest.getGuestFirstName()
+    guest.getGuestBookings()
+    guest.getTotalCostOfRooms()
+
   },
 
   displayManagerDashboard() {
