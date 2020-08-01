@@ -1,21 +1,21 @@
-import Guest from '../Guest';
+import Guest from './Guest'
 
-const domUpdates = {
+let domUpdates = {
 
   // hideLoginForm() {
   // document.querySelector.add('hide')
 
   // },
 
-  displayGuestDashboard() {
+  displayGuestDashboard(guest) {
+    
     let loginForm = document.querySelector('.login-form-container')
     loginForm.classList.add('hide')
     let guestForm = document.querySelector('.guest-dashboard')
     guestForm.classList.remove('hide')
-    guest.getGuestFirstName()
-    guest.getGuestBookings()
-    guest.getTotalCostOfRooms()
-
+    document.querySelector('.guest-name').innerText = `${guest.getGuestFirstName()}`
+    document.querySelector('.guest-money-spent').innerText = `Total amount spent: ${guest.getTotalCostOfRooms()}`
+   
   },
 
   displayManagerDashboard() {
