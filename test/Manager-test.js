@@ -29,7 +29,11 @@ describe('Manager', function () {
     manager = new Manager(userSampleData, bookingsSampleData, roomsSampleData, date) 
   })
 
-  it('should be a subclass of Guest', function () {
+  it('should be an instance of Manager', function() {
+    expect(manager).to.be.an.instanceof(Manager)
+  })
+
+  it('should be a subclass of Guest', function() {
     expect(manager).to.be.an.instanceof(Guest)
   })
 
