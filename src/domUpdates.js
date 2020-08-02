@@ -1,4 +1,5 @@
 import Guest from './Guest'
+import Manager from './Manager'
 
 let domUpdates = {
 
@@ -12,7 +13,7 @@ let domUpdates = {
     loginForm.classList.add('hide')
     let guestForm = document.querySelector('.guest-dashboard')
     guestForm.classList.remove('hide')
-    document.querySelector('.guest-name').innerText = `${guest.getGuestFirstName()}`
+    document.querySelector('.guest-name').innerText = `Welcome back ${guest.getGuestFirstName()}!`
     document.querySelector('.guest-money-spent').insertAdjacentHTML('beforeend', `${guest.getTotalCostOfRooms()}`)
     this.displayGuestBookings(guest)
   },
@@ -35,9 +36,28 @@ let domUpdates = {
     })
   },
 
-  // displayAvailableRooms() {
-  
-  // },
+  displayAvailableRooms(manager, date) {
+    // how to refresh search ???
+    document.querySelector('.no-search-results').classList.add('hide')
+    document.querySelector('.search-rooms-header').classList.remove('hide')
+    manager.findBookedRooms(date)
+    const availRooms = manager.availableRooms
+    if (availRooms.length === 0) {
+    document.querySelector('.no-search-results').classList.remove('hide')
+    }
+    availRooms.forEach(room => {
+      document.querySelector('.available-rooms-container').insertAdjacentHTML('afterend',
+        `<p>Room Number: ${room.number}</p>
+        <p>Room Type: ${room.roomType}</p>
+        <p>Bidet: ${room.bidet}</p>
+        <p>Bed Size: ${room.bedSize}</p>
+        <p>Beds: ${room.numBeds}</p>
+        <p>Cost Per Night: ${room.costPerNight}</p>
+        <button class='book-room-button'>Book Room</button>
+        <div class='card-line'></div>
+      `)
+    })
+  },
 
   
 
