@@ -1,6 +1,5 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-// color variable:
-
+$sky-blue: #195B8C;
+$dark-blue: #082244;
 
 @mixin input-form($width) {
   width: $width;
@@ -9,6 +8,15 @@
   text-align: center;
 }
 
+@mixin dashboards{
+  width: 1000px;
+  height: 500px;
+  margin: 2%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
 
 *{margin: 10px; padding:0}
 
@@ -51,7 +59,8 @@ h1 {
   width: 40vh;
   height: auto;
   padding: 20px 30px;
-  background-color: white;
+  background: whitesmoke;
+  opacity: .90;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 #000;
   margin: auto;
@@ -63,11 +72,7 @@ h1 {
 }
 
 ul.login-form {
-@include input-form(37vh)
-  // width: 37vh;
-  // justify-content: center;
-  // list-style-type: none;
-  // text-align: center;
+@include input-form(37vh);
 }
 
 ul.login-form li {
@@ -94,31 +99,29 @@ ul.login-form p {
   color: darkblue;
 }
 
+
+.guest-dashboard,
+.manager-dashboard,
+.booking-display {
+@include dashboards()
+}
+
 .guest-dashboard {
-  display: flex;
-  align-items: center;
-  width:100vh;
-  height: 50vh;
-  padding: 20px 30px;
   background-color: white;
+  opacity: .90;
+  width: 50vmax;
+  height: 80vmax;
+  overflow: scroll;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 #000;
   margin: auto;
 }
 
-.guest-welcome-box {
-  background: transparent;
-  color: blue;
+.card-line {
+  border-bottom:solid 1.5px lightseagreen;
   width: 100%;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-}
-
-.booking-display,
-.book-room-menu {
-@include input-form(37vh);
-
+  margin: 15px 0px 15px 0px;
+  
 }
 
 .hide {
