@@ -7,30 +7,30 @@ class Manager extends Guest {
     this.allBookings = allBookings;
     this.allRooms = allRooms;
     this.todaysDate = date;
-    this.availableRooms = [];
-    this.bookedRooms = [];
+    // this.availableRooms = [];
+    // this.bookedRooms = [];
   }
 
-  findAvailableRooms(date = this.todaysDate) {
-    let availRooms = this.allBookings.filter(booking => booking.date !== date)
-    this.allRooms.filter(room => {
-      availRooms.forEach(availRoom => {
-        if (room.number === availRoom.roomNumber) {
-          return this.availableRooms.push(room) 
-        }
-      })
+  findAvailableRooms(inputDate) {
+    let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate)
+    let todaySortedBookings = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber)
+    let todaysBookedRooms = todaySortedBookings.map(booking => booking.roomNumber)
+    let availableRooms = [];
+    this.allRooms.forEach(room => {
+      if (!todaysBookedRooms.includes(room.number)) {
+        availableRooms.push(room)
+      }
     })
+    console.log('avail rooms!:', availableRooms)
+    return availableRooms
   }
 
-  findBookedRooms(date = this.todaysDate) {
-    let unavailRooms = this.allBookings.filter(booking => booking.date === date)
-    this.allRooms.filter(room => {
-      unavailRooms.forEach(bookedRoom => {
-        if (room.number === bookedRoom.roomNumber) {
-          return this.bookedRooms.push(room)
-        }
-      })
-    })
+  findBookedRooms(inputDate) {
+    let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate)
+    // Is this sort needed?
+    let bookedRooms = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber)
+    console.log('this booked!:', bookedRooms)
+    return bookedRooms
   }
 
   calculateTodaysRevenue(date) {
