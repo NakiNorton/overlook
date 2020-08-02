@@ -11,7 +11,7 @@
       </nav>
     </header>
   <main>
-    <section class='login-form-container'>
+    <section class='login-form-container hide'>
       <ul class='login-form'>
         <li><h2>Login</h2></li>
         <li><input type='text' class='username' name='username'
@@ -29,17 +29,20 @@
         <h3 class='bookings-header'>Your Bookings</h3>
           </div>
         <section class='guest-bookings-container'>
-          <div class='card-line'></div>
         </section>
-    </section>
-    <section class='booking-display hide'>
-      <ul class='book-room-menu'>
-        <li><h2 class='booking-heading'>Book Your Stay</h2></li>
-           <li><label for='selected-date'>Select A Date</label></li>
-           <li><input type='date' class='selected-date' min='2020-01-01' title='select date input'></li>
-          <li><button class='search-booking'>Search</button></li>
-      </ul>
       </section>
+     <section class='booking-display'>
+        <ul class='book-room-search'>
+          <h2 class='booking-heading'>Book Your Stay</h2></li>
+           <li><label for='selected-date'>Select a Date</label></li>
+          <li><input type='date' class='selected-date' min='2020-01-01' title='select date input'></li>
+          <li><button class='search-rooms-button'>Search</button></li>
+          <h3 class='search-rooms-header hide'>Search Results</h3>
+          <p class='no-search-results hide'>Sorry, there are no rooms available for your search. Please try adjusting your search.</h3>
+        </ul>
+        <section class='available-rooms-container'>
+        </section>
+     </section> 
     </main>
   </body>
 </html>

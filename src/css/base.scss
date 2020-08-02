@@ -99,13 +99,18 @@ ul.login-form p {
   color: darkblue;
 }
 
-
 .guest-dashboard,
 .manager-dashboard,
 .booking-display {
 @include dashboards()
 }
 
+.book-room-search {
+  list-style-type: none;
+  text-align: center;
+}
+
+.booking-display,
 .guest-dashboard {
   background-color: white;
   opacity: .90;
@@ -115,14 +120,15 @@ ul.login-form p {
   border-radius: 10px;
   box-shadow: 0 0 10px 0 #000;
   margin: auto;
+  list-style-type: none;
 }
 
 .card-line {
   border-bottom:solid 1.5px lightseagreen;
   width: 100%;
   margin: 15px 0px 15px 0px;
-  
 }
+
 
 .hide {
   display: none;
