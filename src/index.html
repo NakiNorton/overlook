@@ -11,7 +11,7 @@
       </nav>
     </header>
   <main>
-    <section class='login-form-container hide'>
+    <section class='login-form-container'>
       <ul class='login-form'>
         <li><h2>Login</h2></li>
         <li><input type='text' class='username' name='username'
@@ -22,24 +22,24 @@
       </ul>
     </section>
     <section class='guest-dashboard hide'>
-      <div class='guest-welcome-box'>
         <h2 class='guest-name'>Guest Name</h2>
-        <h3 class='guest-money-spent'>Amount spent:</h3>  
-      </div>
-      <div class='guest-bookings'>
+        <h3 class='guest-money-spent'>Amount spent: </h3>   
+      <div class='reservation-button-container'>
+         <button class='reservation-button'>Book a Room</button>
         <h3 class='bookings-header'>Your Bookings</h3>
-        <div class='reservation-button-container'>
-          <button class='reservation-button'>Book A Room</button>
-        </div>
-      </div>
+          </div>
+        <section class='guest-bookings-container'>
+          <div class='card-line'></div>
+        </section>
     </section>
-    <section class="booking-display">
-      <ul class="book-room-menu">
-        <li><h2 class="booking-heading">Book Your Stay</h2></li>
-           <li><label for="selected-date">Select A Date</label></li>
-           <li><input type="date" class="selected-date" min="2020-01-01" title="select date input"></li>
-          <li><button class="search-booking">Search</button></li>
+    <section class='booking-display hide'>
+      <ul class='book-room-menu'>
+        <li><h2 class='booking-heading'>Book Your Stay</h2></li>
+           <li><label for='selected-date'>Select A Date</label></li>
+           <li><input type='date' class='selected-date' min='2020-01-01' title='select date input'></li>
+          <li><button class='search-booking'>Search</button></li>
       </ul>
       </section>
+    </main>
   </body>
 </html>
