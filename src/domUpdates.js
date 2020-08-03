@@ -36,15 +36,28 @@ let domUpdates = {
     })
   },
 
-  displayAvailableRooms(manager, date) {
+  displayAvailableRooms(manager, date, roomType) {
     // how to refresh search ???
+    let availRooms;
+    console.log(roomType)
+
     document.querySelector('.no-search-results').classList.add('hide')
     document.querySelector('.search-rooms-header').classList.remove('hide')
-    manager.findBookedRooms(date)
-    const availRooms = manager.availableRooms
-    if (availRooms.length === 0) {
-    document.querySelector('.no-search-results').classList.remove('hide')
+    if (roomType !== 'all rooms') { //then filter by type 
+      manager.findAvailableRooms(date)
+      let filteredAvailRooms = manager.filterByRoomType(roomType)
+      availRooms = filteredAvailRooms
+      console.log('filtered:', filteredAvailRooms)
+    } else {
+      let allAvailRooms = manager.findAvailableRooms(date)
+      availRooms = allAvailRooms
+      console.log('all avail:', allAvailRooms)
     }
+     // *** DOESN'T WORK 
+    // if (manager.bookedRooms.length === 25) {
+    // document.querySelector('.no-search-results').classList.remove('hide')
+    // }
+    
     availRooms.forEach(room => {
       document.querySelector('.available-rooms-container').insertAdjacentHTML('afterend',
         `<p>Room Number: ${room.number}</p>
