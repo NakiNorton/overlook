@@ -69,25 +69,23 @@ const instantiateGuest = (guestId, allGuests, allBookings, allRooms) => {
   let currentGuest = allGuests.find(guest => guest.id === guestId)
   let guestBookings = allBookings.filter(booking => booking.userID === guestId)
   guest = new Guest(guestId, currentGuest.name, guestBookings)
-  console.log('guest:', guest)
+  domUpdates.displayGuestDashboard(guest)
   return guest // do I need to return this?
 }
 
 ////// Login validation ///////////
 const validateUsername = (usernameInput) => {
   if (usernameInput.value === 'manager') {
-    fetchManagerData()
+    // fetchManagerData() // changed to fetch data on load
     // domUpdates.displayManagerDashboard()
   } else if (usernameInput.value.slice(0, 8) === 'customer' && usernameInput.value.slice(8) <= 50 ) {
     guestId = Number(usernameInput.value.slice(8))
     console.log('successful login', guestId) 
     fetchGuestData(guestId)
-    // domUpdates.displayGuestDashboard()
   } else {
     console.log('error')
   }
 }
-
 
 // Need to refactor validation process
 const validatePassword = (passwordInput) => {
@@ -104,10 +102,25 @@ const validateLogin = () => {
     validateUsername(usernameInput)
   }
 }
+ 
+const processSearchInput = () => { 
+  let roomTypeInput = document.querySelector('.room-type-dropdown')
+  console.log('room input', roomTypeInput.value)
+  let dateInput = document.querySelector('.selected-date')
+  dateInput = dateInput.value.split('-').join('/')
+  domUpdates.displayAvailableRooms(manager, dateInput, roomTypeInput.value)
+}
+
+const displayBookingForm = () => {
+  domUpdates.showBookingForm()
+  document.querySelector('.search-rooms-button').addEventListener('click', processSearchInput)
+}
 
 
 // Event listeners //
 document.querySelector('.login-submit').addEventListener('click', validateLogin)
+document.querySelector('.reservation-button').addEventListener('click', displayBookingForm)
+// document.querySelector('.search-rooms-button').addEventListener('click', processSearchInput) // how to make date a required field?
 
 // On window load//
-// window.addEventListener('load', fetchAllHotelData)
+window.addEventListener('load', fetchManagerData)

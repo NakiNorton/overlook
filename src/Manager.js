@@ -8,29 +8,27 @@ class Manager extends Guest {
     this.allRooms = allRooms;
     this.todaysDate = date;
     this.availableRooms = [];
-    this.bookedRooms = [];
+    // this.bookedRooms = [];
   }
 
-  findAvailableRooms(date = this.todaysDate) {
-    let availRooms = this.allBookings.filter(booking => booking.date !== date)
-    this.allRooms.filter(room => {
-      availRooms.forEach(availRoom => {
-        if (room.number === availRoom.roomNumber) {
-          return this.availableRooms.push(room) 
-        }
-      })
+  findAvailableRooms(inputDate) {
+    let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate)
+    let todaySortedBookings = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber)
+    let todaysBookedRooms = todaySortedBookings.map(booking => booking.roomNumber)
+    let availableRooms = [];
+    this.allRooms.forEach(room => {
+      if (!todaysBookedRooms.includes(room.number)) {
+        availableRooms.push(room)
+      }
     })
+    this.availableRooms = availableRooms;
+    return availableRooms
   }
 
-  findBookedRooms(date = this.todaysDate) {
-    let unavailRooms = this.allBookings.filter(booking => booking.date === date)
-    this.allRooms.filter(room => {
-      unavailRooms.forEach(bookedRoom => {
-        if (room.number === bookedRoom.roomNumber) {
-          return this.bookedRooms.push(room)
-        }
-      })
-    })
+  findBookedRooms(inputDate) {
+    let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate)
+    let bookedRooms = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber)
+    return bookedRooms
   }
 
   calculateTodaysRevenue(date) {
@@ -41,8 +39,12 @@ class Manager extends Guest {
   }
 
   findGuestBookings(id) {
-    return this.allBookings.filter(booking => booking.userID === id)
-    
+    return this.allBookings.filter(booking => booking.userID === id)  
+  }
+
+  filterByRoomType(searchInput) {
+    const roomsThatMeetCriteria = this.availableRooms.filter(room => room.roomType === searchInput)
+    return roomsThatMeetCriteria;
   }
 }
 
