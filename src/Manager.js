@@ -21,16 +21,13 @@ class Manager extends Guest {
         availableRooms.push(room)
       }
     })
-    console.log('avail rooms!:', availableRooms)
     this.availableRooms = availableRooms;
     return availableRooms
   }
 
   findBookedRooms(inputDate) {
     let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate)
-    // Is this sort needed?
     let bookedRooms = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber)
-    console.log('this booked!:', bookedRooms)
     return bookedRooms
   }
 
@@ -46,11 +43,9 @@ class Manager extends Guest {
   }
 
   filterByRoomType(searchInput) {
-  const roomsThatMeetCriteria = this.availableRooms.filter(room => room.roomType === searchInput)
-  return roomsThatMeetCriteria;
+    const roomsThatMeetCriteria = this.availableRooms.filter(room => room.roomType === searchInput)
+    return roomsThatMeetCriteria;
   }
-
-
 }
 
 export default Manager;
