@@ -11,7 +11,7 @@
       </nav>
     </header>
   <main>
-    <section class='login-form-container hide'>
+    <section class='login-form-container'>
       <ul class='login-form'>
         <li><h2>Login</h2></li>
         <li><input type='text' class='username' name='username'
@@ -31,7 +31,7 @@
         <section class='guest-bookings-container'>
         </section>
       </section>
-     <section class='booking-display'>
+     <section class='booking-display hide'>
         <ul class='book-room-search'>
           <h2 class='booking-heading'>Book Your Stay</h2></li>
            <li><label for='selected-date'>Select a Date</label></li>
@@ -48,10 +48,12 @@
           </form>
           <li><button class='search-rooms-button'>Search</button></li>
           </ul>
+          <div class='search-results hide'>
           <h3 class='search-rooms-header hide'>Search Results</h3>
           <p class='no-search-results hide'>Sorry, there are no rooms available for your search. Please try adjusting your search.</h3>
         <section class='available-rooms-container'>
         </section>
+      </div>
      </section> 
     </main>
   </body>
