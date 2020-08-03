@@ -168,7 +168,7 @@ describe('Manager', function () {
     expect(manager.calculateTodaysRevenue('2020/02/14')).to.equal(755.42)
   })
 
-  it('should be able to find a guests bookings', function () {
+  it('should be able to find a guests bookings', function() {
     expect(manager.findGuestBookings(1)).to.deep.equal([
       {
         id: '5fwrgu4i7k55hl6t5',
@@ -196,4 +196,18 @@ describe('Manager', function () {
       }
     ])
   })
+
+  it('should return rooms that meet room type criteria', function() {
+    expect(manager.filterByRoomType('residential suite')).to.deep.equal([
+      {
+        number: 1,
+        roomType: 'residential suite',
+        bidet: true,
+        bedSize: 'queen',
+        numBeds: 1,
+        costPerNight: 358.4
+      },
+    ])
+  });
+
 })

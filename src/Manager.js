@@ -41,9 +41,15 @@ class Manager extends Guest {
   }
 
   findGuestBookings(id) {
-    return this.allBookings.filter(booking => booking.userID === id)
-    
+    return this.allBookings.filter(booking => booking.userID === id)  
   }
+
+  filterByRoomType(searchInput) {
+  const roomsThatMeetCriteria = this.allRooms.filter(room => room.roomType === searchInput)
+  return roomsThatMeetCriteria;
+  }
+
+
 }
 
 export default Manager;
