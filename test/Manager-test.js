@@ -198,6 +198,7 @@ describe('Manager', function () {
   })
 
   it('should return rooms that meet room type criteria', function() {
+    manager.findAvailableRooms('2020/01/31')
     expect(manager.filterByRoomType('residential suite')).to.deep.equal([
       {
         number: 1,

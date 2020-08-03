@@ -7,7 +7,7 @@ class Manager extends Guest {
     this.allBookings = allBookings;
     this.allRooms = allRooms;
     this.todaysDate = date;
-    // this.availableRooms = [];
+    this.availableRooms = [];
     // this.bookedRooms = [];
   }
 
@@ -22,6 +22,7 @@ class Manager extends Guest {
       }
     })
     console.log('avail rooms!:', availableRooms)
+    this.availableRooms = availableRooms;
     return availableRooms
   }
 
@@ -45,7 +46,7 @@ class Manager extends Guest {
   }
 
   filterByRoomType(searchInput) {
-  const roomsThatMeetCriteria = this.allRooms.filter(room => room.roomType === searchInput)
+  const roomsThatMeetCriteria = this.availableRooms.filter(room => room.roomType === searchInput)
   return roomsThatMeetCriteria;
   }
 
