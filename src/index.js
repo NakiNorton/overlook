@@ -69,20 +69,20 @@ const instantiateGuest = (guestId, allGuests, allBookings, allRooms) => {
   let currentGuest = allGuests.find(guest => guest.id === guestId)
   let guestBookings = allBookings.filter(booking => booking.userID === guestId)
   guest = new Guest(guestId, currentGuest.name, guestBookings)
-  console.log('guest:', guest)
+  domUpdates.displayGuestDashboard(guest)
+  displayAvailRooms()
   return guest // do I need to return this?
 }
 
 ////// Login validation ///////////
 const validateUsername = (usernameInput) => {
   if (usernameInput.value === 'manager') {
-    fetchManagerData()
+    // fetchManagerData() // changed to fetch data on load
     // domUpdates.displayManagerDashboard()
   } else if (usernameInput.value.slice(0, 8) === 'customer' && usernameInput.value.slice(8) <= 50 ) {
     guestId = Number(usernameInput.value.slice(8))
     console.log('successful login', guestId) 
     fetchGuestData(guestId)
-    // domUpdates.displayGuestDashboard()
   } else {
     console.log('error')
   }
@@ -105,9 +105,20 @@ const validateLogin = () => {
   }
 }
 
+function displayAvailRooms() {
+  console.log('manager', manager)
+  console.log('guest', guest)
+ 
+  let roomTypeInput = document.querySelector('.room-type-dropdown')
+  console.log('room input', roomTypeInput.value)
+  let dateInput = document.querySelector('.selected-date')
+  dateInput = dateInput.value.split('-').join('/')
+  domUpdates.displayAvailableRooms(manager, dateInput, roomTypeInput.value)
+}
 
 // Event listeners //
 document.querySelector('.login-submit').addEventListener('click', validateLogin)
-
+document.querySelector('.search-rooms-button').addEventListener('click', displayAvailRooms) // how to make date a required field?
 // On window load//
-// window.addEventListener('load', fetchAllHotelData)
+
+window.addEventListener('load', fetchManagerData)
