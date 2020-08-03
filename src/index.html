@@ -36,10 +36,20 @@
           <h2 class='booking-heading'>Book Your Stay</h2></li>
            <li><label for='selected-date'>Select a Date</label></li>
           <li><input type='date' class='selected-date' min='2020-01-01' title='select date input'></li>
+          <li><label for='roomtype-menu'>Select Room Type</label></li>
+          <form class='roomtype-menu' title='room type dropdown menu'>
+            <select name='room-type' class='room-type-dropdown' title='room dropdown options'>
+              <option value='all rooms'>All Rooms</option>
+              <option value='residential suite'>Residential Suite</option>
+              <option value='suite'>Suite</option>
+              <option value='single room'>Single Room</option>
+              <option value='junior suite'>Junior Suite</option>
+            </select>
+          </form>
           <li><button class='search-rooms-button'>Search</button></li>
+          </ul>
           <h3 class='search-rooms-header hide'>Search Results</h3>
           <p class='no-search-results hide'>Sorry, there are no rooms available for your search. Please try adjusting your search.</h3>
-        </ul>
         <section class='available-rooms-container'>
         </section>
      </section> 
