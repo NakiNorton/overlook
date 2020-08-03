@@ -70,7 +70,6 @@ const instantiateGuest = (guestId, allGuests, allBookings, allRooms) => {
   let guestBookings = allBookings.filter(booking => booking.userID === guestId)
   guest = new Guest(guestId, currentGuest.name, guestBookings)
   domUpdates.displayGuestDashboard(guest)
-  displayAvailRooms()
   return guest // do I need to return this?
 }
 
@@ -88,7 +87,6 @@ const validateUsername = (usernameInput) => {
   }
 }
 
-
 // Need to refactor validation process
 const validatePassword = (passwordInput) => {
   (passwordInput.value !== 'overlook2020') ? false : true;
@@ -104,11 +102,8 @@ const validateLogin = () => {
     validateUsername(usernameInput)
   }
 }
-
-function displayAvailRooms() {
-  console.log('manager', manager)
-  console.log('guest', guest)
  
+const processSearchInput = () => { 
   let roomTypeInput = document.querySelector('.room-type-dropdown')
   console.log('room input', roomTypeInput.value)
   let dateInput = document.querySelector('.selected-date')
@@ -116,9 +111,16 @@ function displayAvailRooms() {
   domUpdates.displayAvailableRooms(manager, dateInput, roomTypeInput.value)
 }
 
+const displayBookingForm = () => {
+  domUpdates.showBookingForm()
+  document.querySelector('.search-rooms-button').addEventListener('click', processSearchInput)
+}
+
+
 // Event listeners //
 document.querySelector('.login-submit').addEventListener('click', validateLogin)
-document.querySelector('.search-rooms-button').addEventListener('click', displayAvailRooms) // how to make date a required field?
-// On window load//
+document.querySelector('.reservation-button').addEventListener('click', displayBookingForm)
+// document.querySelector('.search-rooms-button').addEventListener('click', processSearchInput) // how to make date a required field?
 
+// On window load//
 window.addEventListener('load', fetchManagerData)
