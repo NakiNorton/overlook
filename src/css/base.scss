@@ -43,16 +43,27 @@ h2 {
 }
 
 h3 {
-  @include headingText(black, 400, 24px);
+  @include headingText(black, 400, 26px);
+}
+
+h4 {
+  @include headingText(black, 300, 24px);
 }
 
 p {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .login-error {
   color: red;
+}
+
+.search-for-guest { 
+  margin-top: 40px;
+  border-top: solid 3px rgb(194, 188, 188);
+  padding-top: 25px;
 }
 
 // Forms Styling //
@@ -64,6 +75,7 @@ input[type=text],
 input[type=password] {
   @include loginFields(4px, 25vh, 3vh);
 }
+
 
 input[type=button] {
   @include loginFields(4px, 10vh, 4vh);
@@ -80,6 +92,7 @@ input[type=date],
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.search-guest-button,
 .search-rooms-button {
   @extend input[type=button]; 
 }
@@ -173,7 +186,7 @@ height: 35vh;
 
 .manager-info {
   @extend .guest-info;
-  height: 35vh;
+  height: auto;
 }
 
 .hide {
