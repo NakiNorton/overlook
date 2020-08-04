@@ -36,14 +36,7 @@ let domUpdates = {
 
   displayAvailableRooms(manager, date, roomType) {
     event.preventDefault()
-   
-    let roomDisplayArea = document.querySelector('.available-rooms-container')
-    roomDisplayArea.innerHTML = '';
-    // document.querySelector('.search-results').classList.remove('hide')
     let availRooms;
-   
-    // how to refresh search ???
-    
     if (roomType !== 'all rooms') { //then filter by type 
       manager.findAvailableRooms(date)
       let filteredAvailRooms = manager.filterByRoomType(roomType)
@@ -63,7 +56,7 @@ let domUpdates = {
    } else {
 
     availRooms.forEach(room => {
-      roomDisplayArea.innerHTML +=
+      document.querySelector('.available-rooms-container').insertAdjacentHTML('beforeend',
         `<article class='booking' id=${room.number}>
         <p>Room Number: ${room.number}</p>
         <p>Room Type: ${room.roomType}</p>
@@ -73,7 +66,7 @@ let domUpdates = {
         <p>Cost Per Night: ${room.costPerNight}</p>
         <button class='book-room-button'>Book Room</button>
         <div class='card-line'></div>
-      `
+      `)
     })
    }
   },
