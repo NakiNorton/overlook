@@ -85,21 +85,24 @@ const validateLogin = () => {
     let guestId = Number(username.value.slice(8))
     fetchGuestData(guestId)
   } else {
-    domUpdates.loginError()
+    domUpdates.displayLoginError()
   }
 }
 
 const processSearchInput = () => { 
   let roomTypeInput = document.querySelector('.room-type-dropdown')
-  console.log('room input', roomTypeInput.value)
   let dateInput = document.querySelector('.selected-date')
   dateInput = dateInput.value.split('-').join('/')
+  if (dateInput < todaysDate) {
+    event.preventDefault()
+    domUpdates.displayDateError()
+  } else {
   domUpdates.findAvailRoomsPerSearch(manager, dateInput, roomTypeInput.value)
   document.querySelector('.search-results').addEventListener('click', makeNewBooking)
+  }
 }
 
 const displayBookingForm = () => {
-  console.log('click')
   domUpdates.showBookingForm()
   document.querySelector('.search-rooms-button').addEventListener('click', processSearchInput)
 }
@@ -115,7 +118,6 @@ const postNewBooking = (guestId, dateOfBooking, roomNum) => {
     .then(() => apiFetch.getAllBookingsData())
     .then((response) => {
       console.log(response);
-      // domUpdates.displayGuestDashboard(guest) // duplicating dashboard 
     })
     .then(() => {
       fetchHotelData() 
@@ -135,11 +137,12 @@ const makeNewBooking = (event) => {
 
 const findGuestInfo = () => {
   let nameInput = document.querySelector('.search-guest-input')
-  domUpdates.displayFoundGuest(manager, nameInput.value)
+  domUpdates.displayFoundGuest(manager, nameInput.value, guest)
   document.querySelector('.manager-reservation-button').addEventListener('click', displayBookingForm)
   // let managerDash = document.querySelector('.manager-dashboard')
   // managerDash.classList.add('hide')
 }
+
 
 // Event listeners //
 document.querySelector('.login-submit').addEventListener('click', validateLogin)
