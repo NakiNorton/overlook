@@ -61,7 +61,8 @@ let domUpdates = {
    console.log('check3', availRooms)
     availRooms.forEach(room => {
       document.querySelector('.available-rooms-container').insertAdjacentHTML('afterend',
-        `<p>Room Number: ${room.number}</p>
+        `<article class='booking' id=${room.number}>
+        <p>Room Number: ${room.number}</p>
         <p>Room Type: ${room.roomType}</p>
         <p>Bidet: ${room.bidet}</p>
         <p>Bed Size: ${room.bedSize}</p>
@@ -69,6 +70,7 @@ let domUpdates = {
         <p>Cost Per Night: ${room.costPerNight}</p>
         <button class='book-room-button'>Book Room</button>
         <div class='card-line'></div>
+        </article>
       `)
     })
   },

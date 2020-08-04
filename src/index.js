@@ -31,7 +31,7 @@ const addRoomInfoToBooking = (bookings, rooms) => {
 }
 
 // Manager Fetch //
-function fetchManagerData() { 
+function fetchHotelData() { 
   allGuests = apiFetch.getAllGuestData();
   allBookings = apiFetch.getAllBookingsData();
   allRooms = apiFetch.getAllRoomsData();
@@ -76,7 +76,7 @@ const instantiateGuest = (guestId, allGuests, allBookings, allRooms) => {
 ////// Login validation ///////////
 const validateUsername = (usernameInput) => {
   if (usernameInput.value === 'manager') {
-    // fetchManagerData() // changed to fetch data on load
+    // fetchHotelData() // changed to fetch data on load
     // domUpdates.displayManagerDashboard()
   } else if (usernameInput.value.slice(0, 8) === 'customer' && usernameInput.value.slice(8) <= 50 ) {
     guestId = Number(usernameInput.value.slice(8))
@@ -109,6 +109,7 @@ const processSearchInput = () => {
   let dateInput = document.querySelector('.selected-date')
   dateInput = dateInput.value.split('-').join('/')
   domUpdates.displayAvailableRooms(manager, dateInput, roomTypeInput.value)
+  document.querySelector('.search-results').addEventListener('click', makeNewBooking)
 }
 
 const displayBookingForm = () => {
@@ -117,10 +118,47 @@ const displayBookingForm = () => {
 }
 
 
+const postNewBooking = (guestId, dateOfBooking, roomNum) => {
+  console.log('post:', guestId, dateOfBooking, roomNum)
+  let newBooking = {
+    userID: guestId, 
+    date: dateOfBooking, 
+    roomNumber: Number(roomNum)
+  }
+  apiFetch.postNewBooking(newBooking)
+    .then(() => apiFetch.getAllBookingsData())
+    .then((response) => {
+      console.log(response);
+      domUpdates.displayGuestDashboard(guest)
+      console.log('guest', guest)
+      
+    })
+    .then(() => {
+    fetchHotelData() // gets updated data
+      console.log('manager', manager)
+    })
+    .catch((err) => console.log(err));
+
+}
+
+const makeNewBooking = (event) => {
+  if (event.target.classList.contains('book-room-button')) {
+     console.log('clicked') 
+    }
+    let roomNumber = event.target.parentNode.id
+    console.log(roomNumber)
+  let dateInput = document.querySelector('.selected-date')
+  dateInput = dateInput.value.split('-').join('/')
+  console.log(dateInput)
+  postNewBooking(guest.id, dateInput, roomNumber)
+}
+
+
 // Event listeners //
 document.querySelector('.login-submit').addEventListener('click', validateLogin)
 document.querySelector('.reservation-button').addEventListener('click', displayBookingForm)
+// document.querySelector('body').addEventListener('click', makeNewBooking)
 // document.querySelector('.search-rooms-button').addEventListener('click', processSearchInput) // how to make date a required field?
 
 // On window load//
-window.addEventListener('load', fetchManagerData)
+window.addEventListener('load', fetchHotelData)
