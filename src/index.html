@@ -6,55 +6,79 @@
   <body>
     <header>
       <nav>
-        <!-- <button><img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"></button> -->
         <h1>The Overlook Hotel</h1>
       </nav>
     </header>
   <main>
+    
     <section class='login-form-container'>
-      <ul class='login-form'>
-        <li><h2>Login</h2></li>
-        <li><input type='text' class='username' name='username'
-        placeholder='Username'></li>
-        <li><input type='password' class='password' name='password' placeholder='Password'></li>
-        <li><input type='button' name='submit' class='login-submit' value='Submit'>
+      <form class='login-form'>
+        <h2>Login</h2>
+        <input type='text' class='username' aria-label='username field'
+        placeholder='Username'><br>
+        <input type='password' class='password' aria-label='password field' placeholder='Password'><br>
+        <input type='button' name='submit' class='login-submit' value='Submit'><br>
         <p class='login-error'>error message</p>
-      </ul>
+      </form>
     </section>
-    <section class='guest-dashboard hide'>
+    <!-- GUEST DASHBOARD -->
+    <div class='guest-dashboard hide'>
+      <section class='guest-info'>
         <h2 class='guest-name'>Guest Name</h2>
         <h3 class='guest-money-spent'>Amount spent: </h3>   
-      <div class='reservation-button-container'>
-         <button class='reservation-button'>Book a Room</button>
-        <h3 class='bookings-header'>Your Bookings</h3>
-          </div>
-        <section class='guest-bookings-container'>
-        </section>
+        <button class='reservation-button'>Book a Room</button>
       </section>
-     <section class='booking-display hide'>
-        <ul class='book-room-search'>
-          <h2 class='booking-heading'>Book Your Stay</h2></li>
-           <li><label for='selected-date'>Select a Date</label></li>
-          <li><input type='date' class='selected-date' min='2020-01-01' title='select date input'></li>
-          <li><label for='roomtype-menu'>Select Room Type</label></li>
-          <form class='roomtype-menu' title='room type dropdown menu'>
-            <select name='room-type' class='room-type-dropdown' title='room dropdown options'>
-              <option value='all rooms'>All Rooms</option>
-              <option value='residential suite'>Residential Suite</option>
-              <option value='suite'>Suite</option>
-              <option value='single room'>Single Room</option>
-              <option value='junior suite'>Junior Suite</option>
-            </select>
-          </form>
-          <li><button class='search-rooms-button'>Search</button></li>
-          </ul>
-          <div class='search-results hide'>
-          <h3 class='search-rooms-header hide'>Search Results</h3>
-          <p class='no-search-results hide'>Sorry, there are no rooms available for your search. Please try adjusting your search.</h3>
+      <section class='guest-bookings-container'>
+        <h2 class='bookings-header'>Your Bookings</h2>
+      </section>
+    </div>
+    <!-- MANAGER DASHBOARD -->
+    <div class='manager-dashboard hide'>
+      <section class='manager-info'>
+        <h2 class='manager-name'>Welcome, Boss!</h2>
+        <h4 class='rooms-available-today'>Total Rooms Available Today: </h4>
+        <h4 class='revenue-today'>Today's Revenue: </h4>
+        <h4 class='rooms-percentage'>Percentage of Rooms Available Today: </h4>
+        <input type='text' class='search-guest-input' title='search guest input'>
+        <button class='search-guest-button' type='button'>Search</button>
+        <!-- <div class='book-room-button-container hide'>
+          <button class='book-a-room-button'>Book A Room</button> -->
+        <!-- </div> -->
+        <!-- <section class='found-guest-bookings'> -->
+          <h4 class='found-guest-info'>Guest Information: </h4>
+          <!-- </section> -->
+      </section>
+       
+        <section class='manager-bookings-container'>
+          <h2 class='bookings-header'>Their Bookings</h2>
+        </section>
+    </div>
+    <!-- BOOKING DISPLAY -->
+    <section class='booking-display hide'>
+      <form class='book-room-search'>
+        <h2 class='booking-heading'>Book Your Stay</h2>
+        <label for='selected-date'>Select a Date</label><br>
+        <input type='date' class='selected-date' min='2020-01-01' title='select date input' aria-label='calendar'><br>
+        <label for='roomtype-menu'>Select Room Type</label><br>
+        <select name='room-type' class='room-type-dropdown' title='room dropdown options'>
+          <option value='all rooms'>All Rooms</option>
+          <option value='residential suite'>Residential Suite</option>
+          <option value='suite'>Suite</option>
+          <option value='single room'>Single Room</option>
+          <option value='junior suite'>Junior Suite</option>
+        </select><br>
+        <button class='search-rooms-button'>Search</button>
+      </form>    
+      <div class='search-results'>
         <section class='available-rooms-container'>
+          <!-- // NEED TO GET THESE SHOWING ---- -->
+          <h2 class='bookings-header'>Search Results</h2>
+                <h3 class='no-search-results hide'>Sorry, there are no rooms available for your search. Please try adjusting your search
+                  criteria.</h3>
+          </section>
         </section>
       </div>
-     </section> 
+    </section> 
     </main>
   </body>
 </html>
