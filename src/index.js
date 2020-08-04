@@ -154,10 +154,18 @@ const makeNewBooking = (event) => {
   postNewBooking(guest.id, dateInput, roomNumber)
 }
 
+const findGuestInfo = () => {
+  let nameInput = document.querySelector('.search-guest-input')
+  console.log(nameInput.value)
+  domUpdates.displayFoundGuest(manager, nameInput.value)
+
+}
 
 // Event listeners //
 document.querySelector('.login-submit').addEventListener('click', validateLogin)
 document.querySelector('.reservation-button').addEventListener('click', displayBookingForm)
+document.querySelector('.search-guest-button').addEventListener('click', findGuestInfo)
+
 // document.querySelector('body').addEventListener('click', makeNewBooking)
 // document.querySelector('.search-rooms-button').addEventListener('click', processSearchInput) // how to make date a required field?
 
