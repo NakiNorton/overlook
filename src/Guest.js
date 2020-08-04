@@ -1,4 +1,3 @@
-
 class Guest {
   constructor(guestId, name, bookings) {
     this.id = guestId;
@@ -12,7 +11,7 @@ class Guest {
   }
 
   getTotalCostOfRooms() {
-   return Number(this.guestBookings.reduce((total, booking) => {
+    return Number(this.guestBookings.reduce((total, booking) => {
       return total + booking.costPerNight
     }, 0).toFixed(2))
   }

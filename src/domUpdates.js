@@ -64,7 +64,8 @@ let domUpdates = {
    console.log('check3', availRooms)
     availRooms.forEach(room => {
       roomDisplayArea.innerHTML +=
-        `<p>Room Number: ${room.number}</p>
+        `<article class='booking' id=${room.number}>
+        <p>Room Number: ${room.number}</p>
         <p>Room Type: ${room.roomType}</p>
         <p>Bidet: ${room.bidet}</p>
         <p>Bed Size: ${room.bedSize}</p>
