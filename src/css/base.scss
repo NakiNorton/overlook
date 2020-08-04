@@ -1,6 +1,6 @@
-$sky-blue: #195B8C;
 $dark-blue:darkblue;
 $white: whitesmoke; 
+$line-color:  rgb(194, 188, 188);
 
 *{margin: 10px; padding:0}
 
@@ -56,17 +56,16 @@ p {
   font-weight: 400;
 }
 
-.login-error {
+.error {
   color: red;
 }
 
 .search-for-guest { 
   margin-top: 40px;
-  border-top: solid 3px rgb(194, 188, 188);
+  border-top: solid 3px $line-color;
   padding-top: 25px;
 }
 
-// Forms Styling //
 label {
   @include headingText(black, 200, 18px)
 }
@@ -75,7 +74,6 @@ input[type=text],
 input[type=password] {
   @include loginFields(4px, 25vh, 3vh);
 }
-
 
 input[type=button] {
   @include loginFields(4px, 10vh, 4vh);
@@ -104,7 +102,7 @@ input[type=date],
 }
 
 .return-button {
-  background: whitesmoke;
+  background: $white;
   height: 4.5vh;
   width: 8vh;
   box-shadow: 0 0 5px 0 #000;
@@ -117,7 +115,7 @@ input[type=date],
   width: 40vh;
   height: auto;
   padding: 20px 30px;
-  background: whitesmoke;
+  background: $white;
   opacity: .90;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 #000;
@@ -128,22 +126,19 @@ input[type=date],
 text-align: center;
 }
 
-// Guest Dashboard // 
-
 .guest-info {
-  background-color: white;
+  background-color: $white;
   opacity: .90;
   width: 50vmax;
-  height: 24vmax;
+  height: auto;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.377);
   margin-bottom: 5%;
   padding: 2px;
 }
 
-
 @mixin bookingsDisplayArea() {
-  background-color: white;
+  background-color: $white;
   opacity: .90;
   width: 50vmax;
   height: 80vmax;
@@ -152,7 +147,7 @@ text-align: center;
   box-shadow: 0 0 10px 0 #000;
   margin: auto;
     .card-line  {
-    border-bottom: solid 3px rgb(194, 188, 188);
+    border-bottom: solid 3px $line-color;
     width: 100%;
     margin: 30px 0px 28px 0px;
     }
@@ -162,26 +157,18 @@ text-align: center;
   text-align: center;
   margin-bottom: 3vh;
   padding-bottom: 2vh;
-  border-bottom: dashed 1.5px rgb(194, 188, 188);
+  border-bottom: dashed 1.5px $line-color;
 }
 
-
-// combine these into one //
+.manager-bookings-container,
+.available-rooms-container, 
 .guest-bookings-container {
   @include bookingsDisplayArea()
 }
 
-.available-rooms-container {
-  @include bookingsDisplayArea()
-}
-
-.manager-bookings-container {
-  @include bookingsDisplayArea()
-}
-
 .book-room-search {
-@extend .guest-info;
-height: 35vh;
+  @extend .guest-info;
+  height: auto;
 }
 
 .manager-info {
