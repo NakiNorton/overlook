@@ -43,11 +43,12 @@ class Manager extends Guest {
     return percentage.toFixed();
   }
 
-  calculateTodaysRevenue(date = this.todaysDate) {
-    let todaysBookings = this.allBookings.filter(booking => booking.date === date)
-    return todaysBookings.reduce((total, booking) => {
+  calculateTodaysRevenue() {
+    let todaysBookings = this.allBookings.filter(booking => booking.date === this.todaysDate)
+    let totalRevenue = todaysBookings.reduce((total, booking) => {
       return total + booking.costPerNight
     }, 0)
+    return totalRevenue.toFixed(2)
   }
 
   findGuestBookings(id) {
