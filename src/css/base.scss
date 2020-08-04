@@ -56,6 +56,10 @@ p {
   font-weight: 400;
 }
 
+.found-guest-name {
+  font-size: 24px;
+}
+
 .error {
   color: red;
 }
@@ -112,7 +116,7 @@ input[type=date],
 
 .login-form-container {
   display: flex;
-  width: 40vh;
+  width: auto;
   height: auto;
   padding: 20px 30px;
   background: $white;
@@ -169,6 +173,8 @@ text-align: center;
 .book-room-search {
   @extend .guest-info;
   height: auto;
+  width: auto;
+
 }
 
 .manager-info {
@@ -179,3 +185,25 @@ text-align: center;
 .hide {
   display: none;
 }
+
+@media screen and (max-width: 560px) {
+  h1 {
+  @include headingText($white, 600, 60px)
+  }
+
+  .search-guest-button,
+  .search-rooms-button, 
+  .login-form,
+  .login-form-container {
+    display: flex;
+    width: 80%;
+    height: 80%; 
+  }
+}
+
+
+  
+
+
+
+
