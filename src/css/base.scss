@@ -46,6 +46,15 @@ h3 {
   @include headingText(black, 400, 24px);
 }
 
+p {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+}
+
+.login-error {
+  color: red;
+}
+
 // Forms Styling //
 label {
   @include headingText(black, 200, 18px)
@@ -79,6 +88,15 @@ input[type=date],
   @extend input[type=button];
   margin-top: 30px;
   width: 20vh;
+}
+
+.return-button {
+  background: whitesmoke;
+  height: 4.5vh;
+  width: 8vh;
+  box-shadow: 0 0 5px 0 #000;
+  border-radius: 5px;
+  font-size: medium;
 }
 
 .login-form-container {
