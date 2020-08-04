@@ -8,10 +8,10 @@ class Manager extends Guest {
     this.allRooms = allRooms;
     this.todaysDate = date;
     this.availableRooms = [];
-    // this.bookedRooms = [];
+    this.bookedRooms = [];
   }
 
-  findAvailableRooms(inputDate) {
+  findAvailableRooms(inputDate = this.todaysDate) {
     let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate)
     let todaySortedBookings = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber)
     let todaysBookedRooms = todaySortedBookings.map(booking => booking.roomNumber)
@@ -25,13 +25,25 @@ class Manager extends Guest {
     return availableRooms
   }
 
-  findBookedRooms(inputDate) {
+  findBookedRooms(inputDate = this.todaysDate) {
     let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate)
     let bookedRooms = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber)
+    this.bookedRooms = bookedRooms;
     return bookedRooms
   }
 
-  calculateTodaysRevenue(date) {
+  getTotalRoomsAvailable() {
+    this.findBookedRooms()
+    return this.allRooms.length - this.bookedRooms.length
+  }
+
+  getPercentageOfOccupiedRooms() {
+    let roomsBookedToday = this.allBookings.filter(booking => booking.date === this.todaysDate).length
+    let percentage = ((roomsBookedToday / this.allRooms.length).toFixed(2) * 100)
+    return percentage.toFixed();
+  }
+
+  calculateTodaysRevenue(date = this.todaysDate) {
     let todaysBookings = this.allBookings.filter(booking => booking.date === date)
     return todaysBookings.reduce((total, booking) => {
       return total + booking.costPerNight
@@ -40,6 +52,12 @@ class Manager extends Guest {
 
   findGuestBookings(id) {
     return this.allBookings.filter(booking => booking.userID === id)  
+  }
+
+  findGuestByName(nameInput) {
+    let guestName = nameInput.charAt(0).toUpperCase() + nameInput.slice(1)
+    let foundGuest = this.allGuests.find(guest => guest.name.includes(guestName))
+    return foundGuest
   }
 
   filterByRoomType(searchInput) {
