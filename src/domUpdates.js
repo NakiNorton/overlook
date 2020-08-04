@@ -20,7 +20,6 @@ let domUpdates = {
     managerDash.classList.add('hide')
     let bookingForm = document.querySelector('.booking-display')
     bookingForm.classList.remove('hide')
-
   },
 
   displayGuestDashboard(guest) {
@@ -58,7 +57,6 @@ let domUpdates = {
     } else {
       availRooms = manager.findAvailableRooms(date)
     }
-    
     if (availRooms.length === 0) {
       document.querySelector('.no-search-results').classList.remove('hide')
     } else {
@@ -69,11 +67,7 @@ let domUpdates = {
   displayAvailableRooms(availRooms) {
     event.preventDefault()
     let roomsArea = document.querySelector('.available-rooms-container')
-    roomsArea.innerText = '';
     roomsArea.classList.remove('hide')
-    
-
-    
     availRooms.forEach(room => {
       document.querySelector('.available-rooms-container').insertAdjacentHTML('beforeend',
         `<article class='booking' id=${room.number}>
@@ -105,10 +99,7 @@ let domUpdates = {
     guestInfo.classList.remove('hide')
     guestInfo.innerHTML += `<p>Name: ${foundGuest.name}</p>`
     let guestBookings = manager.findGuestBookings(foundGuest.id)
- console.log('G', guestBookings)
     this.displayGuestBookings(guestBookings, 'manager')
-        
-
   }
 }
 
