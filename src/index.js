@@ -109,6 +109,7 @@ const processSearchInput = () => {
   let dateInput = document.querySelector('.selected-date')
   dateInput = dateInput.value.split('-').join('/')
   domUpdates.displayAvailableRooms(manager, dateInput, roomTypeInput.value)
+  document.querySelector('.search-results').addEventListener('click', makeNewBooking)
 }
 
 const displayBookingForm = () => {
@@ -117,9 +118,30 @@ const displayBookingForm = () => {
 }
 
 
+const postNewBooking = (date, id) => {
+console.log('post:', date, id)
+
+
+
+}
+
+const makeNewBooking = (event) => {
+  if (event.target.classList.contains('book-room-button')) {
+     console.log('clicked') 
+    }
+    let bookingId = event.target.parentNode.id
+    console.log(bookingId)
+  let dateInput = document.querySelector('.selected-date')
+  dateInput = dateInput.value.split('-').join('/')
+  console.log(dateInput)
+  postNewBooking(dateInput, guest.id)
+}
+
+
 // Event listeners //
 document.querySelector('.login-submit').addEventListener('click', validateLogin)
 document.querySelector('.reservation-button').addEventListener('click', displayBookingForm)
+// document.querySelector('body').addEventListener('click', makeNewBooking)
 // document.querySelector('.search-rooms-button').addEventListener('click', processSearchInput) // how to make date a required field?
 
 // On window load//
