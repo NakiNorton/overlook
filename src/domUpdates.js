@@ -15,14 +15,12 @@ let domUpdates = {
     guestForm.classList.remove('hide')
     document.querySelector('.guest-name').innerText = `Welcome back ${guest.getGuestFirstName()}!`
     document.querySelector('.guest-money-spent').insertAdjacentHTML('beforeend', `$${guest.getTotalCostOfRooms()}`)
-    this.displayGuestBookings(guest)
+    this.displayGuestBookings(guest.guestBookings, 'guest')
   },
 
-  displayGuestBookings(guest) {
-    const guestBookings = guest.guestBookings;
-    console.log('guest bookings', guestBookings)
+  displayGuestBookings(guestBookings, user) {
     guestBookings.forEach(booking => {
-      document.querySelector('.guest-bookings-container').insertAdjacentHTML('beforeend',
+      document.querySelector(`.${user}-bookings-container`).insertAdjacentHTML('beforeend',
         `<p>Reservation Date: ${booking.date}</p>
         <p>Reservation Confirmation: ${booking.id}</p>
         <p>Room Type: ${booking.roomType}</p>
@@ -38,6 +36,7 @@ let domUpdates = {
 
   displayAvailableRooms(manager, date, roomType) {
     event.preventDefault()
+   
     let roomDisplayArea = document.querySelector('.available-rooms-container')
     roomDisplayArea.innerHTML = '';
     // document.querySelector('.search-results').classList.remove('hide')
@@ -45,8 +44,6 @@ let domUpdates = {
    
     // how to refresh search ???
     
-  
-   
     if (roomType !== 'all rooms') { //then filter by type 
       manager.findAvailableRooms(date)
       let filteredAvailRooms = manager.filterByRoomType(roomType)
@@ -61,7 +58,10 @@ let domUpdates = {
     // if (manager.bookedRooms.length === 25) {
     // document.querySelector('.no-search-results').classList.remove('hide')
     // }
-   console.log('check3', availRooms)
+   if (availRooms.length === 0) {
+     console.log('There are no rooms available')
+   } else {
+
     availRooms.forEach(room => {
       roomDisplayArea.innerHTML +=
         `<article class='booking' id=${room.number}>
@@ -75,6 +75,7 @@ let domUpdates = {
         <div class='card-line'></div>
       `
     })
+   }
   },
 
   displayManagerDashboard(manager) {
@@ -82,15 +83,23 @@ let domUpdates = {
     loginForm.classList.add('hide')
     let guestForm = document.querySelector('.manager-dashboard')
     guestForm.classList.remove('hide')
-    document.querySelector('.rooms-available-today').insertAdjacentHTML('beforeend', `$${manager.getTotalRoomsAvailable()}`)
-
+    document.querySelector('.rooms-available-today').insertAdjacentHTML('beforeend', `${manager.getTotalRoomsAvailable()}`)
     document.querySelector('.revenue-today').insertAdjacentHTML('beforeend', `$${manager.calculateTodaysRevenue()}`)
-
-
-      // < h3 class='rooms-available-today' > Total Rooms Available Today: </h3 >
-      //   <h3 class='revenue-today'>Today's Revenue: </h3>
-      //   <h3 class='rooms-percentage'>Percentage of Rooms Available Today: </h3>
+    document.querySelector('.rooms-percentage').insertAdjacentHTML('beforeend', `${manager.getPercentageOfOccupiedRooms()}%`)
   },
+
+  displayFoundGuest(manager, nameInput) {
+    let foundGuest = manager.findGuestByName(nameInput) 
+    let guestInfo = document.querySelector('.found-guest-info')
+    guestInfo.classList.remove('hide')
+    guestInfo.innerHTML += `<p>guest name: ${foundGuest.name}</p>`
+    let guestBookings = manager.findGuestBookings(foundGuest.id)
+ console.log('G', guestBookings)
+    this.displayGuestBookings(guestBookings, 'manager')
+        
+
+  }
 }
+
 
 export default domUpdates;
