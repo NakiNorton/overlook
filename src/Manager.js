@@ -12,7 +12,6 @@ class Manager extends Guest {
   }
 
   findAvailableRooms(inputDate = this.todaysDate) {
-    console.log(inputDate)
     let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate)
     let todaySortedBookings = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber)
     let todaysBookedRooms = todaySortedBookings.map(booking => booking.roomNumber)
@@ -44,13 +43,6 @@ class Manager extends Guest {
     return percentage.toFixed();
   }
 
-  // findPercentageOfOccupiedRooms() {
-  //   let numberOfRoomsBookedToday = this.bookings.filter(booking => booking.date === this.date).length
-  //   let percentageOfOccupiedRooms = +((numberOfRoomsBookedToday / this.rooms.length).toFixed(2) * 100)
-  //   domUpdates.displayPercentageOfOccupiedRooms(percentageOfOccupiedRooms.toFixed())
-  //   return +percentageOfOccupiedRooms.toFixed()
-  // };
-
   calculateTodaysRevenue(date = this.todaysDate) {
     let todaysBookings = this.allBookings.filter(booking => booking.date === date)
     return todaysBookings.reduce((total, booking) => {
@@ -63,10 +55,8 @@ class Manager extends Guest {
   }
 
   findGuestByName(nameInput) {
-
     let guestName = nameInput.charAt(0).toUpperCase() + nameInput.slice(1)
     let foundGuest = this.allGuests.find(guest => guest.name.includes(guestName))
-    console.log(foundGuest)
     return foundGuest
   }
 
