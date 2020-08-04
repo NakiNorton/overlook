@@ -71,39 +71,30 @@ const instantiateGuest = (guestId, allGuests, allBookings, allRooms) => {
   return guest 
 }
 
-////// Login validation ///////////
-const validateUsername = (usernameInput) => {
-  if (usernameInput.value === 'manager') {
-    domUpdates.displayManagerDashboard(manager)
-  } else if (usernameInput.value.slice(0, 8) === 'customer' && usernameInput.value.slice(8) <= 50 ) {
-    guestId = Number(usernameInput.value.slice(8))
-    fetchGuestData(guestId)
-  } else {
-    console.log('error')
-  }
-}
 
-// Need to refactor validation process
-const validatePassword = (passwordInput) => {
-  (passwordInput.value !== 'overlook2020') ? false : true;
-}
+// ////// Login validation ///////////
 
 const validateLogin = () => {
-  let usernameInput = document.querySelector('.username');
-  let passwordInput = document.querySelector('.password');
-  if (validatePassword(passwordInput) === false) {
-    console.log('incorrect password') // domUpdates error message
+  event.preventDefault()
+  let username = document.querySelector('.username');
+  let password = document.querySelector('.password');
+  if (username.value === 'manager' && password.value === 'overlook2020') {
+    fetchHotelData()
+    domUpdates.displayManagerDashboard(manager)
+  } else if ((password.value === 'overlook2020' && username.value.slice(0, 8) === 'customer' && username.value.slice(8) <= 50)) {
+    let guestId = Number(username.value.slice(8))
+    fetchGuestData(guestId)
   } else {
-    validateUsername(usernameInput)
+    domUpdates.loginError()
   }
 }
- 
+
 const processSearchInput = () => { 
   let roomTypeInput = document.querySelector('.room-type-dropdown')
   console.log('room input', roomTypeInput.value)
   let dateInput = document.querySelector('.selected-date')
   dateInput = dateInput.value.split('-').join('/')
-  domUpdates.displayAvailableRooms(manager, dateInput, roomTypeInput.value)
+  domUpdates.findAvailRoomsPerSearch(manager, dateInput, roomTypeInput.value)
   document.querySelector('.search-results').addEventListener('click', makeNewBooking)
 }
 
@@ -124,7 +115,7 @@ const postNewBooking = (guestId, dateOfBooking, roomNum) => {
     .then(() => apiFetch.getAllBookingsData())
     .then((response) => {
       console.log(response);
-      domUpdates.displayGuestDashboard(guest) // duplicating dashboard 
+      // domUpdates.displayGuestDashboard(guest) // duplicating dashboard 
     })
     .then(() => {
       fetchHotelData() 
@@ -138,6 +129,7 @@ const makeNewBooking = (event) => {
     let dateInput = document.querySelector('.selected-date')
     dateInput = dateInput.value.split('-').join('/')
     postNewBooking(guest.id, dateInput, roomNumber)
+    alert('You have made a new Reservation')
   }
 }
 
