@@ -75,6 +75,12 @@ input[type=date],
   @extend input[type=button]; 
 }
 
+.reservation-button {
+  @extend input[type=button];
+  margin-top: 30px;
+  width: 20vh;
+}
+
 .login-form-container {
   display: flex;
   width: 40vh;
@@ -97,7 +103,7 @@ text-align: center;
   background-color: white;
   opacity: .90;
   width: 50vmax;
-  height: 20vmax;
+  height: 24vmax;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.377);
   margin-bottom: 5%;
@@ -115,9 +121,9 @@ text-align: center;
   box-shadow: 0 0 10px 0 #000;
   margin: auto;
     .card-line  {
-    border-bottom: solid 2px lightseagreen;
+    border-bottom: solid 3px rgb(194, 188, 188);
     width: 100%;
-    margin: 15px 0px 15px 0px;
+    margin: 30px 0px 28px 0px;
     }
 }
 
@@ -125,9 +131,11 @@ text-align: center;
   text-align: center;
   margin-bottom: 3vh;
   padding-bottom: 2vh;
-  border-bottom: dashed 1.5px lightseagreen;
+  border-bottom: dashed 1.5px rgb(194, 188, 188);
 }
 
+
+// combine these into one //
 .guest-bookings-container {
   @include bookingsDisplayArea()
 }
@@ -139,8 +147,6 @@ text-align: center;
 .manager-bookings-container {
   @include bookingsDisplayArea()
 }
-
-
 
 .book-room-search {
 @extend .guest-info;
