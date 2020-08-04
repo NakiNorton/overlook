@@ -18,14 +18,14 @@
         placeholder='Username'><br>
         <input type='password' class='password' aria-label='password field' placeholder='Password'><br>
         <input type='button' name='submit' class='login-submit' value='Submit'><br>
-        <p class='login-error'></p>
+        <p class='login-error error'></p>
       </form>
     </section>
     <!-- GUEST DASHBOARD -->
     <div class='guest-dashboard hide'>
       <section class='guest-info'>
         <h2 class='guest-name'>Guest Name</h2>
-        <h3 class='guest-money-spent'>Amount spent: </h3>   
+        <h4 class='guest-money-spent'>Amount spent: </h4>   
         <button class='reservation-button'>New Reservation</button>
       </section>
       <section class='guest-bookings-container'>
@@ -35,19 +35,20 @@
     <!-- MANAGER DASHBOARD -->
     <div class='manager-dashboard hide'>
       <section class='manager-info'>
-        <h2 class='manager-name'>Welcome, Boss!</h2>
+        <h2 class='manager-name'>Manager Dashboard</h2>
         <h4 class='rooms-available-today'>Total Rooms Available Today: </h4>
         <h4 class='revenue-today'>Today's Revenue: </h4>
         <h4 class='rooms-percentage'>Percentage of Rooms Available Today: </h4>
-        <input type='text' class='search-guest-input' title='search guest input'>
+        <h4 class='search-for-guest'>Search for Guest: </h4>
+        <input type='text' class='search-guest-input' title='search guest input'><br>
         <button class='search-guest-button' type='button'>Search</button>
           <h4 class='found-guest-info hide'>Guest Information: </h4>
-          <button class='manager-reservation-button'>New Reservation</button>
+          <!-- <button class='manager-reservation-button'>New Reservation</button> -->
           <!-- </section> -->
       </section>
        
-        <section class='manager-bookings-container'>
-          <h2 class='bookings-header'>Guest Bookings</h2>
+        <section class='manager-bookings-container hide'>
+          <h2 class='bookings-header'>Selected Guest's Bookings</h2>
         </section>
     </div>
     <!-- BOOKING DISPLAY -->
@@ -65,9 +66,10 @@
           <option value='junior suite'>Junior Suite</option>
         </select><br>
         <button class='search-rooms-button'>Search</button>
+        <p class='date-error error'></p>
       </form>    
       <div class='search-results'>
-      <section class='available-rooms-container'>
+      <section class='available-rooms-container hide'>
         <h2 class='bookings-header'>Search Results</h2>
       </section>
       </div>
