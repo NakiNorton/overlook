@@ -8,7 +8,6 @@ describe('Guest', function() {
   let currentGuest, guestBookings;
   
   beforeEach(() => {
-    // date = '2020/01/24';
     const addRoomInfoToBooking = (bookings, rooms) => {
       return bookings.map(booking => {
         rooms.forEach(room => {
@@ -28,17 +27,17 @@ describe('Guest', function() {
   })
   
   it('should be a function', () => {
-  expect(Guest).to.be.a('function');
+    expect(Guest).to.be.a('function');
   })
 
   it('should be an instance of Guest', () => {
-  expect(currentGuest).to.be.an.instanceOf(Guest);
+    expect(currentGuest).to.be.an.instanceOf(Guest);
   })
 
-  // it('should return an error message if there is no guest data', () => {
-  // currentGuest = new Guest();
-  // expect(currentGuest.guestData).to.equal('Error, guest data not found')
-  // })
+  it('should return an error message if guest bookings data is not an object', () => {
+    currentGuest = new Guest();
+    expect(currentGuest.guestBookings).to.equal('Guest bookings cannot be found')
+  });
 
   it('should have a guest number id', function () {
     expect(currentGuest.id).to.be.a('number')
