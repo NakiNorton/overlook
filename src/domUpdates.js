@@ -1,8 +1,12 @@
 let domUpdates = {
 
- loginError() {
+  displayLoginError() {
     document.querySelector('.login-error').innerText = 'Username or password is incorrect'
- },
+  },
+
+  displayDateError() {
+    document.querySelector('.date-error').innerText = 'Please enter a future date'
+  },
 
   showBookingForm() {
     let guestForm = document.querySelector('.guest-dashboard')
@@ -24,12 +28,13 @@ let domUpdates = {
     loginForm.classList.add('hide')
     let guestForm = document.querySelector('.guest-dashboard')
     guestForm.classList.remove('hide')
-    document.querySelector('.guest-name').innerText = `Welcome back ${guest.getGuestFirstName()}!`
+    document.querySelector('.guest-name').innerText = `Welcome, ${guest.getGuestFirstName()}!`
     document.querySelector('.guest-money-spent').insertAdjacentHTML('beforeend', `<p>$${guest.getTotalCostOfRooms()}</p>`)
     this.displayGuestBookings(guest.guestBookings, 'guest')
   },
 
   displayGuestBookings(guestBookings, user) {
+    document.querySelector(`.${user}-bookings-container`).classList.remove('hide')
     guestBookings.forEach(booking => {
       document.querySelector(`.${user}-bookings-container`).insertAdjacentHTML('beforeend',
         `<p>Reservation Date: ${booking.date}</p>
@@ -53,6 +58,7 @@ let domUpdates = {
     } else {
       availRooms = manager.findAvailableRooms(date)
     }
+    
     if (availRooms.length === 0) {
       document.querySelector('.no-search-results').classList.remove('hide')
     } else {
@@ -62,6 +68,12 @@ let domUpdates = {
 
   displayAvailableRooms(availRooms) {
     event.preventDefault()
+    let roomsArea = document.querySelector('.available-rooms-container')
+    roomsArea.innerText = '';
+    roomsArea.classList.remove('hide')
+    
+
+    
     availRooms.forEach(room => {
       document.querySelector('.available-rooms-container').insertAdjacentHTML('beforeend',
         `<article class='booking' id=${room.number}>
@@ -79,7 +91,7 @@ let domUpdates = {
 
   displayManagerDashboard(manager) {
     let loginForm = document.querySelector('.login-form-container')
-    loginForm.classList.add('hide')
+    loginForm.classList.add('hide') 
     let guestForm = document.querySelector('.manager-dashboard')
     guestForm.classList.remove('hide')
     document.querySelector('.rooms-available-today').insertAdjacentHTML('beforeend', `<p>${manager.getTotalRoomsAvailable()}</p>`)
@@ -88,11 +100,10 @@ let domUpdates = {
   },
 
   displayFoundGuest(manager, nameInput) {
-  
     let foundGuest = manager.findGuestByName(nameInput) 
     let guestInfo = document.querySelector('.found-guest-info')
     guestInfo.classList.remove('hide')
-    guestInfo.innerHTML += `<p>guest name: ${foundGuest.name}</p>`
+    guestInfo.innerHTML += `<p>Name: ${foundGuest.name}</p>`
     let guestBookings = manager.findGuestBookings(foundGuest.id)
  console.log('G', guestBookings)
     this.displayGuestBookings(guestBookings, 'manager')
