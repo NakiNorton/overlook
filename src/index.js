@@ -77,7 +77,8 @@ const instantiateGuest = (guestId, allGuests, allBookings, allRooms) => {
 const validateUsername = (usernameInput) => {
   if (usernameInput.value === 'manager') {
     // fetchManagerData() // changed to fetch data on load
-    // domUpdates.displayManagerDashboard()
+    domUpdates.displayManagerDashboard(manager)
+
   } else if (usernameInput.value.slice(0, 8) === 'customer' && usernameInput.value.slice(8) <= 50 ) {
     guestId = Number(usernameInput.value.slice(8))
     console.log('successful login', guestId) 
