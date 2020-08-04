@@ -5,8 +5,7 @@ let domUpdates = {
     guestForm.classList.add('hide')
     let bookingForm = document.querySelector('.booking-display')
     bookingForm.classList.remove('hide')
-    let searchResults = document.querySelector('.search-results')
-    searchResults.classList.add('hide')
+   
   },
 
   displayGuestDashboard(guest) {
@@ -38,12 +37,16 @@ let domUpdates = {
   },
 
   displayAvailableRooms(manager, date, roomType) {
+    event.preventDefault()
+    let roomDisplayArea = document.querySelector('.available-rooms-container')
+    roomDisplayArea.innerHTML = '';
+    // document.querySelector('.search-results').classList.remove('hide')
     let availRooms;
-    document.querySelector('.search-results').classList.remove('hide')
+   
     // how to refresh search ???
     
-    document.querySelector('.no-search-results').classList.add('hide')
-    document.querySelector('.search-rooms-header').classList.remove('hide')
+  
+   
     if (roomType !== 'all rooms') { //then filter by type 
       manager.findAvailableRooms(date)
       let filteredAvailRooms = manager.filterByRoomType(roomType)
@@ -60,7 +63,7 @@ let domUpdates = {
     // }
    console.log('check3', availRooms)
     availRooms.forEach(room => {
-      document.querySelector('.available-rooms-container').insertAdjacentHTML('afterend',
+      roomDisplayArea.innerHTML +=
         `<p>Room Number: ${room.number}</p>
         <p>Room Type: ${room.roomType}</p>
         <p>Bidet: ${room.bidet}</p>
@@ -69,15 +72,23 @@ let domUpdates = {
         <p>Cost Per Night: ${room.costPerNight}</p>
         <button class='book-room-button'>Book Room</button>
         <div class='card-line'></div>
-      `)
+      `
     })
   },
 
-  displayManagerDashboard() {
+  displayManagerDashboard(manager) {
     let loginForm = document.querySelector('.login-form-container')
     loginForm.classList.add('hide')
     let guestForm = document.querySelector('.manager-dashboard')
     guestForm.classList.remove('hide')
+    document.querySelector('.rooms-available-today').insertAdjacentHTML('beforeend', `$${manager.getTotalRoomsAvailable()}`)
+
+    document.querySelector('.revenue-today').insertAdjacentHTML('beforeend', `$${manager.calculateTodaysRevenue()}`)
+
+
+      // < h3 class='rooms-available-today' > Total Rooms Available Today: </h3 >
+      //   <h3 class='revenue-today'>Today's Revenue: </h3>
+      //   <h3 class='rooms-percentage'>Percentage of Rooms Available Today: </h3>
   },
 }
 
