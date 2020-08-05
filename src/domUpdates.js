@@ -89,7 +89,7 @@ let domUpdates = {
     let guestForm = document.querySelector('.manager-dashboard');
     guestForm.classList.remove('hide');
     document.querySelector('.rooms-available-today').insertAdjacentHTML('beforeend', `<p>${manager.getTotalRoomsAvailable()}</p>`);
-    document.querySelector('.revenue-today').insertAdjacentHTML('beforeend', `<p>$${manager.calculateTodaysRevenue()}</p>`);
+    document.querySelector('.revenue-today').insertAdjacentHTML('beforeend', `<p>${manager.calculateTodaysRevenue()}</p>`);
     document.querySelector('.rooms-percentage').insertAdjacentHTML('beforeend', `<p>${manager.getPercentageOfOccupiedRooms()}%</p>`);
   },
 
