@@ -102,7 +102,6 @@ const displayBookingForm = () => {
 }
 
 const postNewBooking = (guestId, dateOfBooking, roomNum) => {
-  console.log('post:', guestId, dateOfBooking, roomNum)
   let newBooking = {
     userID: guestId, 
     date: dateOfBooking, 
@@ -134,10 +133,7 @@ const findGuestInfo = () => {
   domUpdates.displayFoundGuest(manager, nameInput.value, guest);
 }
 
-// Event listeners //
-document.querySelector('.login-submit').addEventListener('click', validateLogin);
+document.querySelector('.login-submit').addEventListener('click', validateLogin)
 document.querySelector('.reservation-button').addEventListener('click', displayBookingForm);
 document.querySelector('.search-guest-button').addEventListener('click', findGuestInfo);
-
-// On window load//
 window.addEventListener('load', fetchHotelData);
