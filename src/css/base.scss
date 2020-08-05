@@ -1,6 +1,6 @@
-$sky-blue: #195B8C;
 $dark-blue:darkblue;
 $white: whitesmoke; 
+$line-color:  rgb(194, 188, 188);
 
 *{margin: 10px; padding:0}
 
@@ -43,10 +43,33 @@ h2 {
 }
 
 h3 {
-  @include headingText(black, 400, 24px);
+  @include headingText(black, 400, 26px);
 }
 
-// Forms Styling //
+h4 {
+  @include headingText(black, 300, 24px);
+}
+
+p {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.found-guest-name {
+  font-size: 24px;
+}
+
+.error {
+  color: red;
+}
+
+.search-for-guest { 
+  margin-top: 40px;
+  border-top: solid 3px $line-color;
+  padding-top: 25px;
+}
+
 label {
   @include headingText(black, 200, 18px)
 }
@@ -71,6 +94,7 @@ input[type=date],
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.search-guest-button,
 .search-rooms-button {
   @extend input[type=button]; 
 }
@@ -81,12 +105,21 @@ input[type=date],
   width: 20vh;
 }
 
+.return-button {
+  background: $white;
+  height: 4.5vh;
+  width: 8vh;
+  box-shadow: 0 0 5px 0 #000;
+  border-radius: 5px;
+  font-size: medium;
+}
+
 .login-form-container {
   display: flex;
-  width: 40vh;
+  width: auto;
   height: auto;
   padding: 20px 30px;
-  background: whitesmoke;
+  background: $white;
   opacity: .90;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 #000;
@@ -97,22 +130,19 @@ input[type=date],
 text-align: center;
 }
 
-// Guest Dashboard // 
-
 .guest-info {
-  background-color: white;
+  background-color: $white;
   opacity: .90;
   width: 50vmax;
-  height: 24vmax;
+  height: auto;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.377);
   margin-bottom: 5%;
   padding: 2px;
 }
 
-
 @mixin bookingsDisplayArea() {
-  background-color: white;
+  background-color: $white;
   opacity: .90;
   width: 50vmax;
   height: 80vmax;
@@ -121,7 +151,7 @@ text-align: center;
   box-shadow: 0 0 10px 0 #000;
   margin: auto;
     .card-line  {
-    border-bottom: solid 3px rgb(194, 188, 188);
+    border-bottom: solid 3px $line-color;
     width: 100%;
     margin: 30px 0px 28px 0px;
     }
@@ -131,33 +161,49 @@ text-align: center;
   text-align: center;
   margin-bottom: 3vh;
   padding-bottom: 2vh;
-  border-bottom: dashed 1.5px rgb(194, 188, 188);
+  border-bottom: dashed 1.5px $line-color;
 }
 
-
-// combine these into one //
+.manager-bookings-container,
+.available-rooms-container, 
 .guest-bookings-container {
   @include bookingsDisplayArea()
 }
 
-.available-rooms-container {
-  @include bookingsDisplayArea()
-}
-
-.manager-bookings-container {
-  @include bookingsDisplayArea()
-}
-
 .book-room-search {
-@extend .guest-info;
-height: 35vh;
+  @extend .guest-info;
+  height: auto;
+  width: auto;
+
 }
 
 .manager-info {
   @extend .guest-info;
-  height: 35vh;
+  height: auto;
 }
 
 .hide {
   display: none;
 }
+
+@media screen and (max-width: 560px) {
+  h1 {
+  @include headingText($white, 600, 60px)
+  }
+
+  .search-guest-button,
+  .search-rooms-button, 
+  .login-form,
+  .login-form-container {
+    display: flex;
+    width: 80%;
+    height: 80%; 
+  }
+}
+
+
+  
+
+
+
+

@@ -2,7 +2,12 @@ class Guest {
   constructor(guestId, name, bookings) {
     this.id = guestId;
     this.name = name;
-    this.guestBookings = bookings;
+    this.guestBookings = this.checkIfDataIsAnObject(bookings);
+  }
+
+  checkIfDataIsAnObject(data) {
+    return data instanceof Object
+      ? data : 'Guest bookings cannot be found'
   }
 
   getGuestFirstName() {

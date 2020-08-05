@@ -12,56 +12,61 @@ class Manager extends Guest {
   }
 
   findAvailableRooms(inputDate = this.todaysDate) {
-    let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate)
-    let todaySortedBookings = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber)
-    let todaysBookedRooms = todaySortedBookings.map(booking => booking.roomNumber)
+    let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate);
+    let todaySortedBookings = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber);
+    let todaysBookedRooms = todaySortedBookings.map(booking => booking.roomNumber);
     let availableRooms = [];
     this.allRooms.forEach(room => {
       if (!todaysBookedRooms.includes(room.number)) {
-        availableRooms.push(room)
+        availableRooms.push(room);
       }
     })
     this.availableRooms = availableRooms;
-    return availableRooms
+    return availableRooms;
   }
 
   findBookedRooms(inputDate = this.todaysDate) {
-    let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate)
+    let todaysBookings = this.allBookings.filter(booking => booking.date === inputDate);
     let bookedRooms = todaysBookings.sort((a, b) => a.roomNumber - b.roomNumber)
     this.bookedRooms = bookedRooms;
-    return bookedRooms
+    return bookedRooms;
   }
 
   getTotalRoomsAvailable() {
-    this.findBookedRooms()
-    return this.allRooms.length - this.bookedRooms.length
+    this.findBookedRooms();
+    return this.allRooms.length - this.bookedRooms.length;
   }
 
-  getPercentageOfOccupiedRooms() {
-    let roomsBookedToday = this.allBookings.filter(booking => booking.date === this.todaysDate).length
-    let percentage = ((roomsBookedToday / this.allRooms.length).toFixed(2) * 100)
+  getPercentageOfOccupiedRooms(date = this.todaysDate) {
+    let roomsBookedToday = this.allBookings.filter(booking => booking.date === date)
+    let percentage = ((roomsBookedToday.length / this.allRooms.length) * 100);
     return percentage.toFixed();
   }
 
   calculateTodaysRevenue(date = this.todaysDate) {
     let todaysBookings = this.allBookings.filter(booking => booking.date === date)
-    return todaysBookings.reduce((total, booking) => {
+    let totalRevenue = todaysBookings.reduce((total, booking) => {
       return total + booking.costPerNight
     }, 0)
+    if (totalRevenue) {
+      return `$${totalRevenue.toFixed(2)}`;
+    } else { 
+      return 'revenue unavailable';
+    }
   }
 
   findGuestBookings(id) {
-    return this.allBookings.filter(booking => booking.userID === id)  
+    return this.allBookings.filter(booking => booking.userID === id);
   }
 
   findGuestByName(nameInput) {
-    let guestName = nameInput.charAt(0).toUpperCase() + nameInput.slice(1)
+    let guestName = nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
     let foundGuest = this.allGuests.find(guest => guest.name.includes(guestName))
-    return foundGuest
+    return foundGuest;
   }
 
   filterByRoomType(searchInput) {
-    const roomsThatMeetCriteria = this.availableRooms.filter(room => room.roomType === searchInput)
+    const roomsThatMeetCriteria = this.availableRooms.filter(room => room.roomType === searchInput);
     return roomsThatMeetCriteria;
   }
 }

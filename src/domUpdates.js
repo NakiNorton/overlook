@@ -1,24 +1,39 @@
 let domUpdates = {
 
+  displayLoginError() {
+    document.querySelector('.login-error').innerText = 'Username or password is incorrect';
+  },
+
+  displayDateError() {
+    document.querySelector('.date-error').innerText = 'Please enter a future date';
+  },
+
   showBookingForm() {
-    let guestForm = document.querySelector('.guest-dashboard')
-    guestForm.classList.add('hide')
-    let bookingForm = document.querySelector('.booking-display')
-    bookingForm.classList.remove('hide')
-   
+    let guestForm = document.querySelector('.guest-dashboard');
+    guestForm.classList.add('hide');
+    let bookingForm = document.querySelector('.booking-display');
+    bookingForm.classList.remove('hide');
+  },
+
+  displayManagerBookingForm() {
+    let managerDash = document.querySelector('.manager-dashboard');
+    managerDash.classList.add('hide');
+    let bookingForm = document.querySelector('.booking-display');
+    bookingForm.classList.remove('hide');
   },
 
   displayGuestDashboard(guest) {
-    let loginForm = document.querySelector('.login-form-container')
-    loginForm.classList.add('hide')
-    let guestForm = document.querySelector('.guest-dashboard')
-    guestForm.classList.remove('hide')
-    document.querySelector('.guest-name').innerText = `Welcome back ${guest.getGuestFirstName()}!`
-    document.querySelector('.guest-money-spent').insertAdjacentHTML('beforeend', `$${guest.getTotalCostOfRooms()}`)
-    this.displayGuestBookings(guest.guestBookings, 'guest')
+    let loginForm = document.querySelector('.login-form-container');
+    loginForm.classList.add('hide');
+    let guestForm = document.querySelector('.guest-dashboard');
+    guestForm.classList.remove('hide');
+    document.querySelector('.guest-name').innerText = `Welcome, ${guest.getGuestFirstName()}!`
+    document.querySelector('.guest-money-spent').insertAdjacentHTML('beforeend', `<p>$${guest.getTotalCostOfRooms()}</p>`);
+    this.displayGuestBookings(guest.guestBookings, 'guest');
   },
 
   displayGuestBookings(guestBookings, user) {
+    document.querySelector(`.${user}-bookings-container`).classList.remove('hide');
     guestBookings.forEach(booking => {
       document.querySelector(`.${user}-bookings-container`).insertAdjacentHTML('beforeend',
         `<p>Reservation Date: ${booking.date}</p>
@@ -31,30 +46,28 @@ let domUpdates = {
         <p>Cost Per Night: ${booking.costPerNight}</p>
         <div class='card-line'></div>
       `)
-    })
+    });
   },
 
-  displayAvailableRooms(manager, date, roomType) {
-    event.preventDefault()
+  findAvailRoomsPerSearch(manager, date, roomType) {
     let availRooms;
-    if (roomType !== 'all rooms') { //then filter by type 
-      manager.findAvailableRooms(date)
-      let filteredAvailRooms = manager.filterByRoomType(roomType)
-      availRooms = filteredAvailRooms
-      console.log('check1:', availRooms)
+    if (roomType !== 'all rooms') {  
+      manager.findAvailableRooms(date);
+      availRooms = manager.filterByRoomType(roomType);
     } else {
-      let allAvailRooms = manager.findAvailableRooms(date)
-      availRooms = allAvailRooms
-      console.log('check2:', availRooms)
+      availRooms = manager.findAvailableRooms(date);
     }
-     // *** DOESN'T WORK 
-    // if (manager.bookedRooms.length === 25) {
-    // document.querySelector('.no-search-results').classList.remove('hide')
-    // }
-   if (availRooms.length === 0) {
-     console.log('There are no rooms available')
-   } else {
+    if (availRooms.length === 0) {
+      document.querySelector('.no-search-results').classList.remove('hide');
+    } else {
+      this.displayAvailableRooms(availRooms);
+    }
+  },
 
+  displayAvailableRooms(availRooms) {
+    event.preventDefault();
+    let roomsArea = document.querySelector('.available-rooms-container');
+    roomsArea.classList.remove('hide');
     availRooms.forEach(room => {
       document.querySelector('.available-rooms-container').insertAdjacentHTML('beforeend',
         `<article class='booking' id=${room.number}>
@@ -67,32 +80,27 @@ let domUpdates = {
         <button class='book-room-button'>Book Room</button>
         <div class='card-line'></div>
       `)
-    })
-   }
+    });
   },
 
   displayManagerDashboard(manager) {
-    let loginForm = document.querySelector('.login-form-container')
-    loginForm.classList.add('hide')
-    let guestForm = document.querySelector('.manager-dashboard')
-    guestForm.classList.remove('hide')
-    document.querySelector('.rooms-available-today').insertAdjacentHTML('beforeend', `${manager.getTotalRoomsAvailable()}`)
-    document.querySelector('.revenue-today').insertAdjacentHTML('beforeend', `$${manager.calculateTodaysRevenue()}`)
-    document.querySelector('.rooms-percentage').insertAdjacentHTML('beforeend', `${manager.getPercentageOfOccupiedRooms()}%`)
+    let loginForm = document.querySelector('.login-form-container');
+    loginForm.classList.add('hide');
+    let guestForm = document.querySelector('.manager-dashboard');
+    guestForm.classList.remove('hide');
+    document.querySelector('.rooms-available-today').insertAdjacentHTML('beforeend', `<p>${manager.getTotalRoomsAvailable()}</p>`);
+    document.querySelector('.revenue-today').insertAdjacentHTML('beforeend', `<p>${manager.calculateTodaysRevenue()}</p>`);
+    document.querySelector('.rooms-percentage').insertAdjacentHTML('beforeend', `<p>${manager.getPercentageOfOccupiedRooms()}%</p>`);
   },
 
   displayFoundGuest(manager, nameInput) {
-    let foundGuest = manager.findGuestByName(nameInput) 
-    let guestInfo = document.querySelector('.found-guest-info')
-    guestInfo.classList.remove('hide')
-    guestInfo.innerHTML += `<p>guest name: ${foundGuest.name}</p>`
-    let guestBookings = manager.findGuestBookings(foundGuest.id)
- console.log('G', guestBookings)
-    this.displayGuestBookings(guestBookings, 'manager')
-        
-
+    let foundGuest = manager.findGuestByName(nameInput);
+    let guestInfo = document.querySelector('.found-guest-info');
+    guestInfo.classList.remove('hide');
+    guestInfo.innerHTML += `<p class='found-guest-name'>Name: ${foundGuest.name}</p>`
+    let guestBookings = manager.findGuestBookings(foundGuest.id);
+    this.displayGuestBookings(guestBookings, 'manager');
   }
 }
-
 
 export default domUpdates;

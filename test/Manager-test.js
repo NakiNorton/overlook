@@ -56,7 +56,7 @@ describe('Manager', function () {
     expect(manager.allBookings).to.deep.equal(bookingsSampleData)
   })
 
-  it('should have all hotel rooms manager', function () {
+  it('should have all hotel rooms', function () {
     expect(manager.allRooms).to.deep.equal(roomsSampleData)
   })
 
@@ -146,7 +146,11 @@ describe('Manager', function () {
     manager.findBookedRooms('2020/02/14')
     expect(manager.bookedRooms).to.deep.equal([
       {
-        number: 1,
+        id: '5fwrgu4i7k55hl6t8',
+        userID: 1,
+        date: '2020/02/14',
+        roomNumber: 1,
+        roomServiceCharges: [],
         roomType: 'residential suite',
         bidet: true,
         bedSize: 'queen',
@@ -154,18 +158,22 @@ describe('Manager', function () {
         costPerNight: 358.4
       },
       {
-        number: 6,
+        id: '5fwrgu4i7k55hl6t9',
+        userID: 2,
+        date: '2020/02/14',
+        roomNumber: 6,
+        roomServiceCharges: [],
         roomType: 'junior suite',
         bidet: true,
         bedSize: 'queen',
         numBeds: 1,
         costPerNight: 397.02
-      },
+      }
     ])
   })
 
   it('should calculate total revenue for today', function () {
-    expect(manager.calculateTodaysRevenue('2020/02/14')).to.equal(755.42)
+    expect(manager.calculateTodaysRevenue('2020/02/14')).to.equal('755.42')
   })
 
   it('should be able to find a guests bookings', function() {
@@ -195,6 +203,12 @@ describe('Manager', function () {
         costPerNight: 358.4
       }
     ])
+  })
+
+  it('should find a guest by name', function() {
+    expect(manager.findGuestByName('Leatha')).to.deep.equal(
+      { id: 1, name: 'Leatha Ullrich' }
+    )
   })
 
   it('should return rooms that meet room type criteria', function() {
